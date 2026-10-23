@@ -56,7 +56,7 @@ from django.conf import settings as django_settings
 
 from routers.v1 import auth, courses, instructors, blog, search
 from routers.v1 import cart, orders, payments, enrollments, exams, certificates
-from routers.v1 import notifications, tickets, reviews, users, admin_panel
+from routers.v1 import notifications, tickets, reviews, users, admin_panel, careers
 
 app = FastAPI(
     title="هوش افزا API",
@@ -97,7 +97,7 @@ app.include_router(users.router, prefix="/api/v1/users", tags=["کاربر"])
 app.include_router(notifications.router, prefix="/api/v1/notifications", tags=["اعلان‌ها"])
 app.include_router(tickets.router, prefix="/api/v1/tickets", tags=["تیکت‌ها"])
 app.include_router(reviews.router, prefix="/api/v1/reviews", tags=["نظرات"])
-app.include_router(admin_panel.router, prefix="/api/v1/admin", tags=["پنل مدیریت"])
+app.include_router(admin_panel.router, prefix="/api/v1/admin", tags=["پنل مدیریت"])\napp.include_router(careers.router, prefix="/api/v1/careers", tags=["فرصت‌های شغلی و همکاری"])
 
 
 @app.get("/health", tags=["Health"])
