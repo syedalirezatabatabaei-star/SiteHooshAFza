@@ -152,3 +152,22 @@ p { margin-bottom: var(--space-4); }
 @media (max-width: 767px) {
   .md-only { display: none !important; }
 }
+
+
+/* Modern, restrained foundation shared by all public pages */
+html { scroll-padding-top: 92px; }
+body {
+  color: #172033;
+  background: #fff;
+  line-height: 1.85;
+  font-kerning: normal;
+}
+::selection { background:#dbeafe; color:#172554; }
+a { text-underline-offset:3px; }
+.container { max-width:1320px; }
+h1,h2,h3,h4,h5,h6 { letter-spacing: -.02em; }
+p { color:inherit; }
+:focus-visible { outline:3px solid #93c5fd; outline-offset:3px; }
+@media (prefers-reduced-motion: reduce) {
+  *,*::before,*::after { scroll-behavior:auto!important; animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important; }
+}
