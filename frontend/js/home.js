@@ -30,10 +30,10 @@
             }
         });
         document.querySelector('.navbar-menu a[href="/"]')?.classList.add('active');
-        const icons = ['chip', 'layers', 'eye', 'chart', 'code', 'book'];
+        const iconForCategory = name => { const value = String(name || '').toLowerCase(); if (/پایتون|برنامه|کدنویس|program|python/.test(value)) return 'code'; if (/ماشین|یادگیر|هوش مصنوعی|ai|machine/.test(value)) return 'chip'; if (/بینایی|تصویر|vision/.test(value)) return 'eye'; if (/داده|تحلیل|آمار|data|analytics/.test(value)) return 'chart'; if (/عمیق|شبکه|deep|neural/.test(value)) return 'layers'; if (/دوره|آموزش|مبانی|کتاب/.test(value)) return 'book'; return 'sparkles'; };
         load('categories', '/courses/categories', items => items.map((c, i) => `
             <a href="/pages/courses.html?category=${encodeURIComponent(c.slug)}" class="category-card">
-                <div class="category-icon" aria-hidden="true"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#${icons[i % icons.length]}"></use></svg></div>
+                <div class="category-icon" aria-hidden="true"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#${iconForCategory(c.name)}"></use></svg></div>
                 <h3 class="category-title">${escape(c.name)}</h3>
                 <p class="category-description">${escape(c.description || 'کشف دوره‌ها و شروع یادگیری')}</p><span class="category-arrow" aria-hidden="true">←</span>
             </a>`).join(''), 'هنوز دسته‌بندی‌ای منتشر نشده است.');
