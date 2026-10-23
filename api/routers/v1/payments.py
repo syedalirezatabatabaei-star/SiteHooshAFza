@@ -126,6 +126,12 @@ def payment_callback(
                 course=item.course,
                 defaults={'status': 'ACTIVE', 'access_start': timezone.now()},
             )
+            # License issuance failure must not reverse a verified payment.
+            try:
+                from apps.courses.spotplayer import issue_license_for_order_item
+                issue_license_for_order_item(item)
+            except Exception:
+                pass
 
         return {'message': 'پرداخت موفق', 'success': True}
     else:
@@ -181,6 +187,11 @@ def manual_payment_success(
             course=item.course,
             defaults={'status': 'ACTIVE', 'access_start': timezone.now()},
         )
+        try:
+            from apps.courses.spotplayer import issue_license_for_order_item
+            issue_license_for_order_item(item)
+        except Exception:
+            pass
 
     return {'message': 'پرداخت با موفقیت ثبت شد'}
 
