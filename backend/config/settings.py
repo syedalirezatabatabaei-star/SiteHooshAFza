@@ -93,7 +93,7 @@ PAYMENT_CALLBACK_URL = os.environ.get(
     f"{'http' if SITE_DOMAIN in ('localhost', '127.0.0.1') else 'https'}://{SITE_DOMAIN}/api/v1/payments/callback",
 )
 SPOTPLAYER_API_KEY = os.environ.get('SPOTPLAYER_API_KEY', '')
-SPOTPLAYER_BASE_URL = os.environ.get('SPOTPLAYER_BASE_URL', 'https://api.spotplayer.ir')
+SPOTPLAYER_BASE_URL = os.environ.get('SPOTPLAYER_BASE_URL', 'https://panel.spotplayer.ir')
 
 JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY', '').strip()
 if not JWT_SECRET_KEY or JWT_SECRET_KEY == SECRET_KEY:
