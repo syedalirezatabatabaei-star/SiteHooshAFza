@@ -44,11 +44,15 @@ TEMPLATES = [{
 }]
 WSGI_APPLICATION = 'config.wsgi.application'
 
+DB_PASSWORD = os.environ.get('DB_PASSWORD', '')
+if not DEBUG and (not DB_PASSWORD or DB_PASSWORD == 'hooshafza_pass'):
+    raise RuntimeError('A unique DB_PASSWORD must be configured for production.')
+
 DATABASES = {'default': {
     'ENGINE': 'django.db.backends.mysql',
     'NAME': os.environ.get('DB_NAME', 'hooshafza'),
     'USER': os.environ.get('DB_USER', 'hooshafza_user'),
-    'PASSWORD': os.environ.get('DB_PASSWORD', 'hooshafza_pass'),
+    'PASSWORD': DB_PASSWORD or 'hooshafza_pass',
     'HOST': os.environ.get('DB_HOST', 'localhost'),
     'PORT': os.environ.get('DB_PORT', '3306'),
     'OPTIONS': {
