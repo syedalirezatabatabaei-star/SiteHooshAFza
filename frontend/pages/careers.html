@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+    <title>فرصت شغلی و همکاری | هوش افزا</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/pages.css">
+    <link rel="stylesheet" href="/css/home.css">
+    <style>
+      .career-page{max-width:1040px;margin:0 auto;padding:56px 20px 72px}
+      .career-page h1{font-size:clamp(1.8rem,4vw,2.6rem);line-height:1.45;margin:0 0 14px}
+      .career-page .lead{font-size:1.05rem;line-height:2;color:var(--text-secondary);margin-bottom:28px}
+      .career-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+      .career-option{display:flex;flex-direction:column;gap:12px;padding:24px;border:1px solid var(--border-color);border-radius:16px;background:var(--bg-primary);text-decoration:none;transition:border-color .18s,transform .18s,box-shadow .18s}
+      .career-option:hover{border-color:var(--primary-600);transform:translateY(-2px);box-shadow:0 10px 26px rgba(15,23,42,.08)}
+      .career-option h2{font-size:1.15rem;color:var(--text-primary);margin:0}
+      .career-option p{line-height:1.9;color:var(--text-secondary);margin:0;flex:1}
+      .career-option span{color:var(--primary-700);font-weight:700}
+      @media(max-width:800px){.career-options{grid-template-columns:1fr}}
+    </style>
+</head>
+<body class="hoosh-theme">
+    <div id="header"></div>
+    <main class="career-page">
+      <h1>فرصت شغلی و همکاری با هوش افزا</h1>
+      <p class="lead">مسیر موردنظرتان را انتخاب کنید تا اطلاعات مرتبط با همکاری یا فرصت‌های شغلی را ببینید.</p>
+      <div class="career-options">
+        <a class="career-option" href="/pages/collaborate-institute.html"><h2>همکاری با مؤسسه</h2><p>برای همکاری آموزشی، پژوهشی یا تولید محتوای تخصصی.</p><span>مشاهده جزئیات ←</span></a>
+        <a class="career-option" href="/pages/subsidiary-companies.html"><h2>همکاری با شرکت‌های زیرمجموعه</h2><p>برای پیشنهادهای تجاری، خدمات حرفه‌ای و همکاری سازمانی.</p><span>مشاهده جزئیات ←</span></a>
+        <a class="career-option" href="/pages/job-opportunities.html"><h2>فرصت‌های شغلی</h2><p>مشاهده وضعیت فرصت‌های شغلی و راه ارتباط برای معرفی سوابق.</p><span>مشاهده جزئیات ←</span></a>
+      </div>
+    </main>
+    <div id="footer"></div>
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/components/header.js"></script>
+    <script src="/js/components/footer.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', () => { Header.init(); Footer.init(); });</script>
+</body>
+</html>
