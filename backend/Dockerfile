@@ -16,5 +16,5 @@ COPY . .
 
 EXPOSE 8001
 
-# Production WSGI server (gunicorn). Falls back to runserver if gunicorn missing.
-CMD ["sh", "-c", "gunicorn config.wsgi:application --bind 0.0.0.0:8001 --workers 3 --timeout 60 || python manage.py runserver 0.0.0.0:8001 --noreload"]
+# Fail closed: never fall back to Django's development server in production.
+CMD ["gunicorn", "config.wsgi:application", "--bind", "0.0.0.0:8001", "--workers", "3", "--timeout", "60"]
