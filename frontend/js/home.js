@@ -21,6 +21,14 @@
     document.addEventListener('DOMContentLoaded', () => {
         Header.init(); Footer.init();
         if (typeof Carousel !== 'undefined') Carousel.init('#heroCarousel');
+        const learningSearch = document.getElementById('learningPathSearch');
+        learningSearch?.addEventListener('submit', event => {
+            const query = document.getElementById('learningPathQuery')?.value.trim();
+            if (!query) {
+                event.preventDefault();
+                document.getElementById('learningPathQuery')?.focus();
+            }
+        });
         document.querySelector('.navbar-menu a[href="/"]')?.classList.add('active');
         const icons = ['chip', 'layers', 'eye', 'chart', 'code', 'book'];
         load('categories', '/courses/categories', items => items.map((c, i) => `
