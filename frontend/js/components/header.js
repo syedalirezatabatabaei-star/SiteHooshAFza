@@ -20,7 +20,6 @@ const Header = (() => {
 
                 <div class="navbar-menu">
                     <a href="/" class="navbar-link">خانه</a>
-                    <a href="/pages/courses.html" class="navbar-link">دوره‌ها</a>
                     <div class="navbar-category" id="navbarCategory">
                         <a href="/pages/courses.html" class="navbar-link navbar-category-trigger" aria-haspopup="true" aria-expanded="false" id="navbarCategoryTrigger">
                             حوزه‌های آموزشی <span class="navbar-category-chevron" aria-hidden="true">▾</span>
@@ -29,8 +28,24 @@ const Header = (() => {
                             <div class="navbar-category-loading">برای مشاهده حوزه‌ها مکث کنید…</div>
                         </div>
                     </div>
+                    <a href="/pages/courses.html" class="navbar-link navbar-courses-link">دوره‌ها</a>
                     <a href="/pages/instructors.html" class="navbar-link">مدرسین</a>
                     <a href="/pages/blog.html" class="navbar-link">وبلاگ</a>
+                    <div class="navbar-dropdown" id="navbarAboutDropdown">
+                        <a href="/pages/about.html" class="navbar-link navbar-dropdown-trigger" aria-haspopup="true" aria-expanded="false">درباره ما <span class="navbar-category-chevron" aria-hidden="true">▾</span></a>
+                        <div class="navbar-dropdown-menu" role="menu" aria-label="درباره ما">
+                            <a role="menuitem" class="navbar-dropdown-item" href="/pages/about.html">درباره ما</a>
+                            <a role="menuitem" class="navbar-dropdown-item" href="/pages/gallery.html">گالری</a>
+                        </div>
+                    </div>
+                    <div class="navbar-dropdown" id="navbarCareersDropdown">
+                        <a href="/pages/careers.html" class="navbar-link navbar-dropdown-trigger" aria-haspopup="true" aria-expanded="false">فرصت شغلی <span class="navbar-category-chevron" aria-hidden="true">▾</span></a>
+                        <div class="navbar-dropdown-menu" role="menu" aria-label="فرصت شغلی">
+                            <a role="menuitem" class="navbar-dropdown-item" href="/pages/collaborate-institute.html">همکاری با مؤسسه</a>
+                            <a role="menuitem" class="navbar-dropdown-item" href="/pages/subsidiary-companies.html">همکاری با شرکت‌های زیرمجموعه</a>
+                            <a role="menuitem" class="navbar-dropdown-item" href="/pages/job-opportunities.html">فرصت‌های شغلی</a>
+                        </div>
+                    </div>
                     <a href="/pages/contact.html" class="navbar-link">تماس با ما</a>
                 </div>
 
@@ -57,13 +72,28 @@ const Header = (() => {
             <button class="mobile-menu-close" onclick="Header.toggleMobile()" aria-label="بستن منو">✕</button>
             <div class="mobile-menu-links">
                 <a href="/" class="mobile-menu-link">خانه</a>
-                <a href="/pages/courses.html" class="mobile-menu-link">دوره‌ها</a>
                 <div class="mobile-category-group">
                     <button type="button" class="mobile-menu-link mobile-category-trigger" id="mobileCategoryTrigger" aria-expanded="false">حوزه‌های آموزشی <span aria-hidden="true">▾</span></button>
                     <div class="mobile-category-menu" id="mobileCategoryMenu"></div>
                 </div>
+                <a href="/pages/courses.html" class="mobile-menu-link mobile-courses-link">دوره‌ها</a>
                 <a href="/pages/instructors.html" class="mobile-menu-link">مدرسین</a>
                 <a href="/pages/blog.html" class="mobile-menu-link">وبلاگ</a>
+                <div class="mobile-nav-group">
+                    <button type="button" class="mobile-menu-link mobile-nav-group-trigger" aria-expanded="false" aria-controls="mobileAboutLinks">درباره ما <span aria-hidden="true">▾</span></button>
+                    <div class="mobile-nav-submenu" id="mobileAboutLinks">
+                        <a class="mobile-menu-link" href="/pages/about.html">درباره ما</a>
+                        <a class="mobile-menu-link" href="/pages/gallery.html">گالری</a>
+                    </div>
+                </div>
+                <div class="mobile-nav-group">
+                    <button type="button" class="mobile-menu-link mobile-nav-group-trigger" aria-expanded="false" aria-controls="mobileCareerLinks">فرصت شغلی <span aria-hidden="true">▾</span></button>
+                    <div class="mobile-nav-submenu" id="mobileCareerLinks">
+                        <a class="mobile-menu-link" href="/pages/collaborate-institute.html">همکاری با مؤسسه</a>
+                        <a class="mobile-menu-link" href="/pages/subsidiary-companies.html">همکاری با شرکت‌های زیرمجموعه</a>
+                        <a class="mobile-menu-link" href="/pages/job-opportunities.html">فرصت‌های شغلی</a>
+                    </div>
+                </div>
                 <a href="/pages/contact.html" class="mobile-menu-link">تماس با ما</a>
                 <hr>
                 ${isLoggedIn ? `
@@ -131,19 +161,24 @@ const Header = (() => {
     }
 
     function initActiveLinks() {
-        const path = window.location.pathname.replace(/\/+$/, '') || '/';
+        const path = window.location.pathname.replace(/\\/+$/, '') || '/';
+        const category = new URLSearchParams(window.location.search).get('category');
         const links = document.querySelectorAll('.navbar-link[href], .mobile-menu-link[href]');
         links.forEach(link => {
             const url = new URL(link.href, window.location.origin);
-            const target = url.pathname.replace(/\/+$/, '') || '/';
-            if (target === path && !url.search) {
+            const target = url.pathname.replace(/\\/+$/, '') || '/';
+            if (target !== path || url.search) return;
+            // Course and category triggers share a destination; never mark both active.
+            if (category && (link.classList.contains('navbar-courses-link') || link.classList.contains('mobile-courses-link'))) return;
+            if (!category && (link.classList.contains('navbar-category-trigger') || link.classList.contains('mobile-category-trigger'))) return;
+            link.classList.add('active');
+            link.setAttribute('aria-current', 'page');
+        });
+        if (category) {
+            document.querySelectorAll('.navbar-category-trigger').forEach(link => {
                 link.classList.add('active');
                 link.setAttribute('aria-current', 'page');
-            }
-        });
-        const category = new URLSearchParams(window.location.search).get('category');
-        if (category) {
-            document.querySelectorAll('.navbar-category-trigger').forEach(link => link.classList.add('active'));
+            });
         }
     }
 
@@ -185,12 +220,24 @@ const Header = (() => {
         }
     }
 
+    function initMobileNavGroups() {
+        document.querySelectorAll('#header .mobile-nav-group-trigger').forEach(trigger => {
+            trigger.addEventListener('click', () => {
+                const expanded = trigger.getAttribute('aria-expanded') === 'true';
+                trigger.setAttribute('aria-expanded', String(!expanded));
+                const submenu = document.getElementById(trigger.getAttribute('aria-controls'));
+                if (submenu) submenu.classList.toggle('is-open', !expanded);
+            });
+        });
+    }
+
     function init() {
         const headerEl = document.getElementById('header');
         if (headerEl) {
             headerEl.innerHTML = render();
             initActiveLinks();
             initCategoryInteractions();
+            initMobileNavGroups();
         }
     }
 
