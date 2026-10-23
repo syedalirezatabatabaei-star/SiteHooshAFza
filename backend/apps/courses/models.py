@@ -279,7 +279,7 @@ class SpotPlayerLicense(models.Model):
     )
     external_license_id = models.CharField('شناسه لایسنس خارجی', max_length=120, blank=True)
     license_key = models.CharField('کد لایسنس', max_length=500, blank=True)
-    license_url = models.URLField('آدرس دریافت لایسنس', max_length=1000, blank=True)
+    license_url = models.CharField('آدرس دریافت لایسنس', max_length=1000, blank=True)
     status = models.CharField('وضعیت', max_length=10, choices=STATUS_CHOICES, default='PENDING', db_index=True)
     error_message = models.TextField('خطا', blank=True)
     provider_response = models.JSONField('پاسخ سرویس', default=dict, blank=True)
