@@ -34,23 +34,37 @@
 <body class="hoosh-theme">
     <div id="header"></div>
 
-    <!-- Hero: fixed search and two reserved image slots -->
-    <section class="section hero-search-section" aria-label="جست‌وجوی مسیر یادگیری">
+    <!-- Homepage hero slider: two image slots reserved for later content, followed by the learning search -->
+    <section class="section hero-carousel-section" aria-label="مسیر یادگیری هوش افزا">
         <div class="container">
-            <div class="learning-discovery-grid">
-                <div class="learning-search-panel">
-                    <span class="learning-search-eyebrow">مسیر شما از اینجا شروع می‌شود</span>
-                    <h1>به دنبال چه چیزی هستید؟</h1>
-                    <p>نام مهارت یا دوره‌ای را که می‌خواهید یاد بگیرید وارد کنید.</p>
-                    <form class="learning-search-form" id="learningPathSearch" role="search" action="/pages/courses.html" method="get">
-                        <label class="visually-hidden" for="learningPathQuery">به دنبال چه چیزی هستید؟</label>
-                        <svg class="ui-icon learning-search-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#search"></use></svg>
-                        <input id="learningPathQuery" name="search" type="search" placeholder="مثلاً پایتون، طراحی سایت، هوش مصنوعی" autocomplete="off">
-                        <button class="btn btn-primary" type="submit">جست‌وجو</button>
-                    </form>
+            <div id="heroCarousel" class="hero-carousel" data-autoplay="true" data-interval="6000" data-loop="true" aria-label="اسلایدر صفحه اصلی">
+                <div class="carousel-track">
+                    <div class="carousel-slide hero-placeholder-slide">
+                        <!-- تصویر اسلاید اول را بعداً در این بخش قرار دهید -->
+                        <div class="hero-slide-placeholder" aria-label="جایگاه تصویر اول"></div>
+                    </div>
+                    <div class="carousel-slide hero-placeholder-slide">
+                        <!-- تصویر اسلاید دوم را بعداً در این بخش قرار دهید -->
+                        <div class="hero-slide-placeholder hero-slide-placeholder-alt" aria-label="جایگاه تصویر دوم"></div>
+                    </div>
+                    <div class="carousel-slide hero-search-slide">
+                        <div class="hero-slide-shade"></div>
+                        <div class="hero-slide-content">
+                            <span class="learning-search-eyebrow">مسیر شما از اینجا شروع می‌شود</span>
+                            <h1 class="hero-title">به دنبال چه چیزی هستید؟</h1>
+                            <p class="hero-subtitle">نام مهارت یا دوره‌ای را که می‌خواهید یاد بگیرید وارد کنید.</p>
+                            <form class="learning-search-form" id="learningPathSearch" role="search" action="/pages/courses.html" method="get">
+                                <label class="visually-hidden" for="learningPathQuery">به دنبال چه چیزی هستید؟</label>
+                                <svg class="ui-icon learning-search-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#search"></use></svg>
+                                <input id="learningPathQuery" name="search" type="search" placeholder="مثلاً پایتون، طراحی سایت، هوش مصنوعی" autocomplete="off">
+                                <button class="btn btn-primary" type="submit">جست‌وجو</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <div class="learning-empty-tile" aria-hidden="true"></div>
-                <div class="learning-empty-tile" aria-hidden="true"></div>
+                <button class="carousel-btn carousel-prev" type="button" aria-label="اسلاید قبلی"></button>
+                <button class="carousel-btn carousel-next" type="button" aria-label="اسلاید بعدی"></button>
+                <div class="carousel-dots" role="tablist" aria-label="انتخاب اسلاید"></div>
             </div>
         </div>
     </section>
