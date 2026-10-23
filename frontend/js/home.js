@@ -20,7 +20,6 @@
     }
     document.addEventListener('DOMContentLoaded', () => {
         Header.init(); Footer.init();
-        if (typeof Carousel !== 'undefined') Carousel.init('#heroCarousel');
         const learningSearch = document.getElementById('learningPathSearch');
         learningSearch?.addEventListener('submit', event => {
             const query = document.getElementById('learningPathQuery')?.value.trim();
