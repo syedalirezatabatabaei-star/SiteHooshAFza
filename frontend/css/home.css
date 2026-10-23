@@ -362,6 +362,7 @@
 }
 
 
+.hoosh-theme .hero-search-section { padding:36px 0; background:#f6f8fc; }
 /* Learning discovery: fixed geometry prevents focus/typing layout shifts */
 .hoosh-theme .learning-discovery-grid {
     display:grid;
@@ -392,6 +393,7 @@
     font-size:13px;
     font-weight:700;
 }
+.hoosh-theme .learning-search-panel h1,
 .hoosh-theme .learning-search-panel h3 {
     margin:0 0 8px;
     color:#17345c;
