@@ -63,7 +63,8 @@
             currentPage = page;
             const container = document.getElementById('coursesGrid');
             const type = Utils.getUrlParam('type');
-            const category = document.getElementById('categoryFilter')?.value || Utils.getUrlParam('category');
+            const categoryControl = document.getElementById('categoryFilter');
+            const category = categoryControl ? categoryControl.value : Utils.getUrlParam('category');
             const search = document.getElementById('searchInput').value.trim() || Utils.getUrlParam('search') || '';
 
             Utils.showLoading(container);
