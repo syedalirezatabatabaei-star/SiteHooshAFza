@@ -514,7 +514,7 @@ def reject_review(review_id: int, admin=Depends(get_current_admin)):
 def admin_list_courses(admin=Depends(get_current_admin)):
     from routers.v1.courses import serialize_course
     return [dict(serialize_course(course).model_dump(), status=course.status,
-                 is_published=course.is_published)
+                 is_published=course.is_published,\n                 spotplayer_course_id=course.spotplayer_course_id)
             for course in Course.objects.select_related('instructor', 'category').all()]
 
 @router.post('/courses', status_code=201)
