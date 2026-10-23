@@ -103,13 +103,16 @@ def refresh_token(data: RefreshRequest):
             detail='توکن نامعتبر است',
         )
 
-    user_id = int(payload.get('sub'))
     try:
+        user_id = int(payload.get('sub'))
+        if user_id <= 0:
+            raise ValueError
         user = User.objects.get(pk=user_id, is_active=True)
-    except User.DoesNotExist:
+    except (TypeError, ValueError, User.DoesNotExist):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail='کاربر یافت نشد',
+            detail='کاربر یافت نشد یا توکن نامعتبر است',
+            headers={'WWW-Authenticate': 'Bearer'},
         )
 
     access_token = create_access_token(user.id, user.phone_number, user.role)
