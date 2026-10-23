@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+    <title>همکاری با مؤسسه | هوش افزا</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/pages.css">
+    <link rel="stylesheet" href="/css/home.css">
+    <style>
+      .simple-info-page{max-width:920px;margin:0 auto;padding:56px 20px 72px}
+      .simple-info-page .eyebrow{display:inline-block;color:var(--primary-700);font-weight:700;margin-bottom:12px}
+      .simple-info-page h1{font-size:clamp(1.8rem,4vw,2.6rem);line-height:1.45;margin:0 0 14px}
+      .simple-info-page .lead{font-size:1.05rem;line-height:2;color:var(--text-secondary);margin-bottom:28px}
+      .simple-info-page .info-panel{background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:16px;padding:24px;line-height:2}
+      .simple-info-page .info-panel h2{font-size:1.2rem;margin:0 0 10px}
+      .simple-info-page .info-panel p{margin:0 0 12px}
+      .simple-info-page .info-panel p:last-child{margin-bottom:0}
+      .simple-info-page .info-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+    </style>
+</head>
+<body class="hoosh-theme">
+    <div id="header"></div>
+    <main class="simple-info-page">
+      <span class="eyebrow">هوش افزا</span>
+      <h1>همکاری با مؤسسه</h1>
+      <p class="lead">اگر در آموزش، پژوهش یا توسعه محتوای تخصصی فعالیت دارید، می‌توانید علاقه‌مندی خود را برای همکاری با مؤسسه هوش افزا مطرح کنید.</p>
+      <section class="info-panel"><h2>زمینه‌های همکاری</h2><p>همکاری آموزشی، طراحی و تولید محتوای آموزشی، اجرای کارگاه‌ها و فعالیت‌های پژوهشی از زمینه‌های قابل بررسی هستند.</p><p>برای شروع، شرح مختصری از تخصص، سوابق و زمینه همکاری موردنظرتان را از طریق صفحه تماس با ما ارسال کنید. شرایط هر همکاری پس از بررسی مشخص می‌شود.</p><div class="info-actions"><a class="btn btn-primary" href="/pages/contact.html">ارسال درخواست همکاری</a></div></section>
+    </main>
+    <div id="footer"></div>
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/components/header.js"></script>
+    <script src="/js/components/footer.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', () => { Header.init(); Footer.init(); });</script>
+</body>
+</html>
