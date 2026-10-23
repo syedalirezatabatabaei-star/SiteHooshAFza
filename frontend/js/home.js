@@ -39,11 +39,11 @@
             </a>`).join(''), 'هنوز دسته‌بندی‌ای منتشر نشده است.');
         load('popularCourses', '/courses?page=1&page_size=4', items => items.map(renderCourseCard).join(''), 'هنوز دوره‌ای منتشر نشده است.');
         load('instructors', '/instructors?page=1&page_size=8', items => items.map(i => `
-            <article class="instructor-tile">
-                ${i.profile_image && /^(https?:\\/\\/|\\/)/.test(i.profile_image) ? `<img class="instructor-avatar" src="${escape(i.profile_image)}" alt="${escape(i.name)}" loading="lazy">` : `<span class="instructor-avatar">${escape((i.name || '').slice(0, 1))}</span>`}
+            <a href="/pages/instructors.html?slug=${encodeURIComponent(i.slug)}" class="instructor-tile" aria-label="مشاهده پروفایل ${escape(i.name)}">
+                ${i.profile_image && /^(https?:\/\/|\/)/.test(i.profile_image) ? `<img class="instructor-avatar" src="${escape(i.profile_image)}" alt="${escape(i.name)}" loading="lazy">` : `<span class="instructor-avatar">${escape((i.name || '').slice(0, 1))}</span>`}
                 <div><h3>${escape(i.name)}</h3><p>${escape(i.specialization || 'مدرس هوش افزا')}</p></div>
-            </article>`).join(''), 'اطلاعات مدرسین به‌زودی منتشر می‌شود.');
-        const countItems = data => Array.isArray(data) ? data.length : (Array.isArray(data?.items) ? data.items.length : Number(data?.total ?? data?.total_count ?? data?.count ?? 0));
+            </a>`).join(''), 'اطلاعات مدرسین به‌زودی منتشر می‌شود.');
+        const countItems = data => Array.isArray(data) ? data.length : Number(data?.total ?? data?.total_count ?? data?.count ?? (Array.isArray(data?.items) ? data.items.length : 0));
         const setStat = (id, value) => { const el = document.getElementById(id); if (el && Number.isFinite(Number(value))) el.textContent = new Intl.NumberFormat('fa-IR').format(Number(value)); };
         Promise.allSettled([
             API.get('/courses?page=1&page_size=1'),
