@@ -44,7 +44,7 @@
     <script src="/js/components/footer.js"></script>
     <script src="/js/utils.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => { Header.init(); Footer.init(); });
+        document.addEventListener('DOMContentLoaded', async () => { Header.init(); Footer.init(); });
         document.getElementById('contactForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             if (!Auth.isLoggedIn()) { Utils.showToast('برای ارسال پیام ابتدا وارد حساب کاربری شوید', 'error'); return; }
