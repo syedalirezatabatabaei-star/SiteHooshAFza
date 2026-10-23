@@ -19,7 +19,7 @@ class SpotPlayerAPIError(RuntimeError):
 
 def create_license(*, name, course_id, watermark_text=None):
     api_key = getattr(settings, 'SPOTPLAYER_API_KEY', '') or os.environ.get('SPOTPLAYER_API_KEY', '')
-    base_url = (os.environ.get('SPOTPLAYER_BASE_URL') or 'https://panel.spotplayer.ir').rstrip('/')
+    base_url = (os.environ.get('SPOTPLAYER_BASE_URL') or getattr(settings, 'SPOTPLAYER_BASE_URL', '') or 'https://panel.spotplayer.ir').rstrip('/')
     endpoint = os.environ.get('SPOTPLAYER_LICENSE_ENDPOINT', '/license/edit/').strip()
     if not api_key:
         raise SpotPlayerConfigurationError('SPOTPLAYER_API_KEY تنظیم نشده است.')
