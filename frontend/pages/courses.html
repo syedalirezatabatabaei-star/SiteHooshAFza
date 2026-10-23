@@ -29,6 +29,14 @@
                 <a href="/pages/courses.html?type=RECORDED" class="btn btn-sm btn-outline filter-btn" data-type="RECORDED">ضبط‌شده</a>
             </div>
 
+            <!-- Category filter populated from the backend -->
+            <div class="mb-6" style="max-width:320px">
+                <label for="categoryFilter" class="text-sm" style="display:block;margin-bottom:var(--space-2)">حوزه آموزشی</label>
+                <select id="categoryFilter" class="form-input" aria-label="فیلتر حوزه آموزشی">
+                    <option value="">همه حوزه‌ها</option>
+                </select>
+            </div>
+
             <!-- Search -->
             <div class="mb-6" style="max-width:400px">
                 <input type="search" class="form-input" id="searchInput" placeholder="جستجوی دوره..." aria-label="جستجو">
@@ -55,7 +63,7 @@
             currentPage = page;
             const container = document.getElementById('coursesGrid');
             const type = Utils.getUrlParam('type');
-            const category = Utils.getUrlParam('category');
+            const category = document.getElementById('categoryFilter')?.value || Utils.getUrlParam('category');
             const search = document.getElementById('searchInput').value.trim() || Utils.getUrlParam('search') || '';
 
             Utils.showLoading(container);
@@ -99,6 +107,20 @@
             });
 
             document.getElementById('searchInput').value = Utils.getUrlParam('search') || '';
+            const categoryFilter = document.getElementById('categoryFilter');
+            try {
+                const categories = await API.get('/courses/categories');
+                const items = Array.isArray(categories) ? categories : (categories.items || []);
+                const selectedCategory = Utils.getUrlParam('category') || '';
+                const escapeOption = value => String(value || '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+                categoryFilter.innerHTML = '<option value="">همه حوزه‌ها</option>' + items.map(item =>
+                    '<option value="' + escapeOption(item.slug) + '">' + escapeOption(item.name) + '</option>'
+                ).join('');
+                categoryFilter.value = selectedCategory;
+            } catch (error) {
+                console.error('Failed to load course categories', error);
+            }
+            categoryFilter.addEventListener('change', () => loadCourses(1));
             loadCourses(1);
         });
     </script>
