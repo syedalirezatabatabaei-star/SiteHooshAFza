@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import BaseModel, Field
 from typing import Optional
 
 
@@ -6,7 +6,7 @@ class CareerApplicationCreate(BaseModel):
     application_type: str = Field(pattern='^(INSTITUTE|SUBSIDIARY|JOB)$')
     full_name: str = Field(min_length=2, max_length=180)
     phone: str = Field(min_length=7, max_length=30)
-    email: Optional[EmailStr] = None
+    email: Optional[str] = Field(default=None, max_length=254)
     organization: str = Field(default='', max_length=200)
     position: str = Field(default='', max_length=200)
     message: str = Field(min_length=10, max_length=5000)
