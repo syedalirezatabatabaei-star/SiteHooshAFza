@@ -97,7 +97,9 @@ app.include_router(users.router, prefix="/api/v1/users", tags=["کاربر"])
 app.include_router(notifications.router, prefix="/api/v1/notifications", tags=["اعلان‌ها"])
 app.include_router(tickets.router, prefix="/api/v1/tickets", tags=["تیکت‌ها"])
 app.include_router(reviews.router, prefix="/api/v1/reviews", tags=["نظرات"])
-app.include_router(admin_panel.router, prefix="/api/v1/admin", tags=["پنل مدیریت"])\napp.include_router(careers.router, prefix="/api/v1/careers", tags=["فرصت‌های شغلی و همکاری"])\napp.include_router(gallery.router, prefix="/api/v1/gallery", tags=["گالری"])
+app.include_router(admin_panel.router, prefix="/api/v1/admin", tags=["پنل مدیریت"])
+app.include_router(careers.router, prefix="/api/v1/careers", tags=["فرصت‌های شغلی و همکاری"])
+app.include_router(gallery.router, prefix="/api/v1/gallery", tags=["گالری"])
 
 
 @app.get("/health", tags=["Health"])
