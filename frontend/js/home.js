@@ -38,10 +38,28 @@
                 <p class="category-description">${escape(c.description || 'کشف دوره‌ها و شروع یادگیری')}</p><span class="category-arrow" aria-hidden="true">←</span>
             </a>`).join(''), 'هنوز دسته‌بندی‌ای منتشر نشده است.');
         load('popularCourses', '/courses?page=1&page_size=4', items => items.map(renderCourseCard).join(''), 'هنوز دوره‌ای منتشر نشده است.');
-        load('instructors', '/instructors?page=1&page_size=4', items => items.map(i => `
+        load('instructors', '/instructors?page=1&page_size=8', items => items.map(i => `
             <article class="instructor-tile">
-                ${i.profile_image && /^(https?:\/\/|\/)/.test(i.profile_image) ? `<img class="instructor-avatar" src="${escape(i.profile_image)}" alt="${escape(i.name)}" loading="lazy">` : `<span class="instructor-avatar">${escape((i.name || '').slice(0, 1))}</span>`}
-                <div><h3>${escape(i.name)}</h3><p>${escape(i.specialization)}</p></div>
+                ${i.profile_image && /^(https?:\\/\\/|\\/)/.test(i.profile_image) ? `<img class="instructor-avatar" src="${escape(i.profile_image)}" alt="${escape(i.name)}" loading="lazy">` : `<span class="instructor-avatar">${escape((i.name || '').slice(0, 1))}</span>`}
+                <div><h3>${escape(i.name)}</h3><p>${escape(i.specialization || 'مدرس هوش افزا')}</p></div>
             </article>`).join(''), 'اطلاعات مدرسین به‌زودی منتشر می‌شود.');
+        const countItems = data => Array.isArray(data) ? data.length : (Array.isArray(data?.items) ? data.items.length : Number(data?.total ?? data?.total_count ?? data?.count ?? 0));
+        const setStat = (id, value) => { const el = document.getElementById(id); if (el && Number.isFinite(Number(value))) el.textContent = new Intl.NumberFormat('fa-IR').format(Number(value)); };
+        Promise.allSettled([
+            API.get('/courses?page=1&page_size=1'),
+            API.get('/instructors?page=1&page_size=1'),
+            API.get('/courses/categories'),
+            API.get('/admin/dashboard/stats')
+        ]).then(results => {
+            const [courses, instructors, categories, dashboard] = results;
+            if (courses.status === 'fulfilled') setStat('statCourses', countItems(courses.value));
+            if (instructors.status === 'fulfilled') setStat('statInstructors', countItems(instructors.value));
+            if (categories.status === 'fulfilled') setStat('statCategories', countItems(categories.value));
+            if (dashboard.status === 'fulfilled') {
+                const stats = dashboard.value?.data || dashboard.value;
+                const students = stats?.total_students ?? stats?.students_count ?? stats?.total_users ?? stats?.users_count;
+                if (students != null) setStat('statStudents', students);
+            }
+        });
     });
 })();
