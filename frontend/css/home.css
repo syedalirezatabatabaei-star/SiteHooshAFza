@@ -305,3 +305,58 @@
   .start-banner { padding:28px 18px; }
   .start-banner h2 { font-size:21px; }
 }
+
+
+/* Brand-aligned education carousel: restrained navy, white and blue accents */
+.hoosh-theme .navbar { background:rgba(255,255,255,.97); border-color:#e2e8f0; }
+.hoosh-theme .navbar-link { color:#34445b; }
+.hoosh-theme .navbar-link:hover,.hoosh-theme .navbar-link.active { color:#245fdb; }
+.hoosh-theme .navbar-link.active { border-bottom-color:#245fdb; }
+.hoosh-theme .navbar-brand { color:#17345c; }
+.hoosh-theme .navbar-brand-text { background:none; color:#17345c; -webkit-text-fill-color:#17345c; }
+.hoosh-theme .btn-primary,.hoosh-theme .hero-actions .btn-primary { background:#245fdb; color:#fff; box-shadow:0 6px 18px rgb(36 95 219 / .2); }
+.hoosh-theme .btn-primary:hover,.hoosh-theme .hero-actions .btn-primary:hover { background:#1949b4; }
+.hoosh-theme .hero-carousel-section { padding:28px 0 22px; background:#f6f8fc; overflow:hidden; }
+.hoosh-theme .hero-carousel { position:relative; height:clamp(350px, 38vw, 500px); border-radius:22px; overflow:hidden; isolation:isolate; background:#17345c; box-shadow:0 16px 40px rgb(23 52 92 / .14); }
+.hoosh-theme .hero-carousel .carousel-track { display:flex; height:100%; transition:transform .55s cubic-bezier(.22,.61,.36,1); }
+.hoosh-theme .hero-carousel .carousel-slide { flex:0 0 100%; width:100%; height:100%; position:relative; overflow:hidden; display:flex; align-items:center; opacity:1; }
+.hoosh-theme .hero-slide-image { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; z-index:0; }
+.hoosh-theme .hero-slide-shade { position:absolute; inset:0; z-index:1; background:linear-gradient(270deg,rgba(12,31,58,.94) 0%,rgba(12,31,58,.78) 42%,rgba(12,31,58,.2) 100%); }
+.hoosh-theme .hero-slide-content { position:relative; z-index:2; width:min(680px,75%); padding:clamp(24px,5vw,64px); text-align:right; }
+.hoosh-theme .hero-slide-content .hero-title { font-size:clamp(27px,3.2vw,44px); line-height:1.65; color:#fff; margin:14px 0 12px; letter-spacing:-.6px; }
+.hoosh-theme .hero-slide-content .hero-title span { background:none; color:#8bc5ff; -webkit-text-fill-color:#8bc5ff; }
+.hoosh-theme .hero-slide-content .hero-subtitle { color:#e1eaf6; max-width:560px; font-size:clamp(13px,1.2vw,16px); margin-bottom:22px; }
+.hoosh-theme .hero-slide-content .hero-badge { color:#fff; background:rgba(255,255,255,.12); border-color:rgba(255,255,255,.3); }
+.hoosh-theme .hero-slide-content .hero-actions { gap:12px; margin:0; }
+.hoosh-theme .hero-slide-content .btn-outline { border:1px solid rgba(255,255,255,.72); color:#fff; background:rgba(255,255,255,.06); }
+.hoosh-theme .hero-slide-content .btn-outline:hover { background:rgba(255,255,255,.16); }
+.hoosh-theme .hero-carousel .carousel-btn { position:absolute; z-index:4; top:50%; transform:translateY(-50%); width:42px; height:42px; display:grid; place-items:center; border:1px solid rgba(255,255,255,.35); border-radius:50%; color:#fff; background:rgba(11,30,55,.48); cursor:pointer; backdrop-filter:blur(8px); }
+.hoosh-theme .hero-carousel .carousel-prev { right:18px; }
+.hoosh-theme .hero-carousel .carousel-next { left:18px; }
+.hoosh-theme .hero-carousel .carousel-btn:hover { background:#245fdb; }
+.hoosh-theme .hero-carousel .carousel-dots { position:absolute; z-index:4; bottom:20px; right:clamp(24px,5vw,64px); display:flex; gap:8px; }
+.hoosh-theme .hero-carousel .carousel-dot { width:9px; height:9px; padding:0; border:0; border-radius:20px; background:rgba(255,255,255,.6); cursor:pointer; transition:width .2s,background .2s; }
+.hoosh-theme .hero-carousel .carousel-dot.active { width:27px; background:#fff; }
+.hoosh-theme .section-title { color:#17345c; }
+.hoosh-theme .category-card { background:#fff; border-color:#e2e8f0; }
+.hoosh-theme .category-icon,.hoosh-theme .category-arrow { color:#245fdb; }
+.hoosh-theme .course-type-badge { background:#245fdb; }
+.hoosh-theme .price { color:#245fdb; }
+@media (max-width:767px) {
+ .hoosh-theme .hero-carousel-section { padding:14px 0; }
+ .hoosh-theme .hero-carousel { height:410px; border-radius:15px; }
+ .hoosh-theme .hero-slide-image { object-position:60% center; }
+ .hoosh-theme .hero-slide-shade { background:linear-gradient(0deg,rgba(12,31,58,.96) 0%,rgba(12,31,58,.78) 58%,rgba(12,31,58,.24) 100%); }
+ .hoosh-theme .hero-slide-content { width:100%; padding:28px 22px 56px; align-self:flex-end; }
+ .hoosh-theme .hero-slide-content .hero-title { font-size:25px; line-height:1.65; }
+ .hoosh-theme .hero-slide-content .hero-subtitle { font-size:13px; line-height:1.9; }
+ .hoosh-theme .hero-slide-content .hero-actions { gap:8px; }
+ .hoosh-theme .hero-slide-content .hero-actions .btn { min-width:0; padding:10px 12px; font-size:12px; }
+ .hoosh-theme .hero-carousel .carousel-prev { right:10px; }
+ .hoosh-theme .hero-carousel .carousel-next { left:10px; }
+ .hoosh-theme .hero-carousel .carousel-btn { width:34px; height:34px; top:20px; transform:none; }
+ .hoosh-theme .hero-carousel .carousel-dots { bottom:18px; right:22px; }
+}
+@media (prefers-reduced-motion:reduce) {
+ .hoosh-theme .hero-carousel .carousel-track,.hoosh-theme .hero-carousel .carousel-dot { transition:none; }
+}

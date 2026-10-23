@@ -20,6 +20,7 @@
     }
     document.addEventListener('DOMContentLoaded', () => {
         Header.init(); Footer.init();
+        if (typeof Carousel !== 'undefined') Carousel.init('#heroCarousel');
         document.querySelector('.navbar-menu a[href="/"]')?.classList.add('active');
         const icons = ['chip', 'layers', 'eye', 'chart', 'code', 'book'];
         load('categories', '/courses/categories', items => items.map((c, i) => `
