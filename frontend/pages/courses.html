@@ -56,20 +56,20 @@
             const container = document.getElementById('coursesGrid');
             const type = Utils.getUrlParam('type');
             const category = Utils.getUrlParam('category');
-            const search = Utils.getUrlParam('search') || document.getElementById('searchInput').value;
+            const search = document.getElementById('searchInput').value.trim() || Utils.getUrlParam('search') || '';
 
             Utils.showLoading(container);
 
             let endpoint = `/courses?page=${page}&page_size=12`;
             if (type) endpoint += `&type=${type}`;
-            if (category) endpoint += `&category=${category}`;
+            if (category) endpoint += `&category=${encodeURIComponent(category)}`;
             if (search) endpoint += `&search=${encodeURIComponent(search)}`;
 
             try {
                 const data = await API.get(endpoint);
                 if (data.items && data.items.length > 0) {
                     container.innerHTML = data.items.map(renderCourseCard).join('');
-                    Utils.createPagination(document.getElementById('pagination'), data.page, data.pages, loadCourses);
+                    Utils.createPagination(document.getElementById('pagination'), data.page || page, data.pages || 1, loadCourses);
                 } else {
                     Utils.showEmpty(container, 'دوره‌ای یافت نشد');
                     document.getElementById('pagination').innerHTML = '';
@@ -98,6 +98,7 @@
                 searchTimeout = setTimeout(() => loadCourses(1), 500);
             });
 
+            document.getElementById('searchInput').value = Utils.getUrlParam('search') || '';
             loadCourses(1);
         });
     </script>
