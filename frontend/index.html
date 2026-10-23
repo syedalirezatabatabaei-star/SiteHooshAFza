@@ -34,54 +34,53 @@
 <body class="hoosh-theme">
     <div id="header"></div>
 
-    <!-- Hero Section -->
-    <section class="hero-section" aria-label="معرفی هوش افزا">
+    <!-- Hero: three-slide education banner carousel -->
+    <section class="hero-section hero-carousel-section" aria-label="معرفی هوش افزا">
         <div class="container">
-            <div class="hero-grid">
-                <div class="hero-content">
-                    <span class="hero-badge">یادگیری هوش مصنوعی</span>
-                    <h1 class="hero-title">یادگیری هوش مصنوعی،<br><span>از آموزش تا کسب درآمد</span></h1>
-                    <p class="hero-subtitle">
-                        با دوره‌های تخصصی هوش افزا، مهارت‌های مورد نیاز بازار کار را یاد بگیرید.
-                        از مبتدی تا حرفه‌ای، مسیر یادگیری خود را با ما شروع کنید.
-                    </p>
-                    <div class="hero-actions">
-                        <a href="/pages/courses.html" class="btn btn-primary btn-lg">
-                            شروع یادگیری
-                        </a>
-                        <a href="#popularCourses" class="btn btn-outline btn-lg">
-                            مشاهده دوره‌ها
-                        </a>
-                    </div>
-                    <div class="hero-stats">
-                        <div class="hero-stat-item">
-                            <div class="hero-stat-icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#users"></use></svg></div>
-                            <div class="hero-stat-info">
-                                <span class="hero-stat-number">گام‌به‌گام</span>
-                                <span class="hero-stat-label">مسیر یادگیری</span>
+            <div id="heroCarousel" class="carousel hero-carousel" data-autoplay="true" data-interval="5500" data-loop="true" aria-roledescription="carousel">
+                <div class="carousel-track">
+                    <article class="carousel-slide active" aria-label="اسلاید ۱ از ۳">
+                        <img class="hero-slide-image" src="/assets/images/banners/banner-1.jpg" alt="فضای آموزشی و دوره‌های تخصصی" fetchpriority="high">
+                        <div class="hero-slide-shade"></div>
+                        <div class="hero-slide-content">
+                            <span class="hero-badge">آکادمی هوش افزا</span>
+                            <h1 class="hero-title">یادگیری مهارت‌های آینده،<br><span>با مسیری روشن و کاربردی</span></h1>
+                            <p class="hero-subtitle">دوره‌های تخصصی، آموزش مرحله‌به‌مرحله و مهارت‌هایی که می‌توانید در عمل به کار بگیرید.</p>
+                            <div class="hero-actions">
+                                <a href="/pages/courses.html" class="btn btn-primary btn-lg">مشاهده دوره‌ها</a>
+                                <a href="/pages/about.html" class="btn btn-outline btn-lg">آشنایی با هوش افزا</a>
                             </div>
                         </div>
-                        <div class="hero-stat-item">
-                            <div class="hero-stat-icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#book"></use></svg></div>
-                            <div class="hero-stat-info">
-                                <span class="hero-stat-number">پروژه‌محور</span>
-                                <span class="hero-stat-label">آموزش کاربردی</span>
+                    </article>
+                    <article class="carousel-slide" aria-label="اسلاید ۲ از ۳">
+                        <img class="hero-slide-image" src="/assets/images/banners/banner-2.jpg" alt="آموزش مهارت‌های تخصصی و کاربردی" loading="lazy">
+                        <div class="hero-slide-shade"></div>
+                        <div class="hero-slide-content">
+                            <span class="hero-badge">از یادگیری تا مهارت</span>
+                            <h2 class="hero-title">دانش را به توانایی<br><span>و توانایی را به فرصت تبدیل کن</span></h2>
+                            <p class="hero-subtitle">با آموزش‌های هدفمند و تمرین‌های کاربردی، قدم‌به‌قدم پیشرفت کن.</p>
+                            <div class="hero-actions">
+                                <a href="/pages/courses.html" class="btn btn-primary btn-lg">انتخاب مسیر یادگیری</a>
                             </div>
                         </div>
-                        <div class="hero-stat-item">
-                            <div class="hero-stat-icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#target"></use></svg></div>
-                            <div class="hero-stat-info">
-                                <span class="hero-stat-number">تخصصی</span>
-                                <span class="hero-stat-label">محتوای آموزشی</span>
+                    </article>
+                    <article class="carousel-slide" aria-label="اسلاید ۳ از ۳">
+                        <img class="hero-slide-image" src="/assets/images/banners/banner-3.jpg" alt="یادگیری آنلاین و توسعه مهارت" loading="lazy">
+                        <div class="hero-slide-shade"></div>
+                        <div class="hero-slide-content">
+                            <span class="hero-badge">یادگیری برای همه</span>
+                            <h2 class="hero-title">هر قدمی که یاد می‌گیری،<br><span>شروع یک فرصت تازه است</span></h2>
+                            <p class="hero-subtitle">دوره مناسب خودت را پیدا کن و یادگیری را با برنامه‌ای قابل اجرا شروع کن.</p>
+                            <div class="hero-actions">
+                                <a href="/pages/courses.html" class="btn btn-primary btn-lg">شروع یادگیری</a>
+                                <a href="/pages/contact.html" class="btn btn-outline btn-lg">مشاوره و راهنمایی</a>
                             </div>
                         </div>
-                    </div>
+                    </article>
                 </div>
-                <div class="hero-visual">
-                    <div class="hero-art-crop">
-                        <img src="/assets/images/ai-learning-hero.png" alt="تصویر تراشه هوش مصنوعی و مهارت‌های یادگیری" class="hero-reference-art" width="1672" height="941" fetchpriority="high">
-                    </div>
-                </div>
+                <button type="button" class="carousel-btn carousel-prev" aria-label="اسلاید قبلی"></button>
+                <button type="button" class="carousel-btn carousel-next" aria-label="اسلاید بعدی"></button>
+                <div class="carousel-dots" role="tablist" aria-label="انتخاب اسلاید"></div>
             </div>
         </div>
     </section>
@@ -242,6 +241,7 @@
     <script src="/js/components/header.js"></script>
     <script src="/js/components/footer.js"></script>
     <script src="/js/components/course-card.js"></script>
+    <script src="/js/components/carousel.js"></script>
     <script src="/js/home.js"></script>
 
     <!-- JSON-LD -->
