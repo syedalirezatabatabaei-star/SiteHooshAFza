@@ -32,3 +32,22 @@ class CareerApplication(models.Model):
 
     def __str__(self):
         return f'{self.get_application_type_display()} - {self.full_name}'
+
+
+
+class GalleryItem(models.Model):
+    title = models.CharField('عنوان تصویر', max_length=200)
+    image_url = models.URLField('آدرس تصویر', max_length=1000)
+    alt_text = models.CharField('متن جایگزین', max_length=250, blank=True)
+    caption = models.CharField('توضیح تصویر', max_length=500, blank=True)
+    sort_order = models.PositiveIntegerField('ترتیب نمایش', default=0)
+    is_active = models.BooleanField('نمایش داده شود', default=True, db_index=True)
+    created_at = models.DateTimeField('تاریخ ثبت', auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'تصویر گالری'
+        verbose_name_plural = 'گالری تصاویر'
+        ordering = ['sort_order', '-created_at']
+
+    def __str__(self):
+        return self.title
