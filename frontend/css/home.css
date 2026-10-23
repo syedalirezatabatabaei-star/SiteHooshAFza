@@ -360,3 +360,138 @@
 @media (prefers-reduced-motion:reduce) {
  .hoosh-theme .hero-carousel .carousel-track,.hoosh-theme .hero-carousel .carousel-dot { transition:none; }
 }
+
+
+/* Learning discovery: fixed geometry prevents focus/typing layout shifts */
+.hoosh-theme .learning-discovery-grid {
+    display:grid;
+    grid-template-columns:minmax(0,1.45fr) minmax(0,.78fr) minmax(0,.78fr);
+    gap:18px;
+    align-items:stretch;
+    direction:rtl;
+}
+.hoosh-theme .learning-search-panel {
+    min-width:0;
+    min-height:250px;
+    box-sizing:border-box;
+    padding:clamp(22px,3vw,36px);
+    border:1px solid #e0e8f3;
+    border-radius:20px;
+    background:linear-gradient(145deg,#fff 0%,#f3f7ff 100%);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:stretch;
+    text-align:right;
+}
+.hoosh-theme .learning-search-eyebrow {
+    display:inline-flex;
+    align-self:flex-start;
+    margin-bottom:12px;
+    color:#245fdb;
+    font-size:13px;
+    font-weight:700;
+}
+.hoosh-theme .learning-search-panel h3 {
+    margin:0 0 8px;
+    color:#17345c;
+    font-size:clamp(21px,2vw,28px);
+    line-height:1.6;
+}
+.hoosh-theme .learning-search-panel p {
+    margin:0 0 20px;
+    color:#65748a;
+    font-size:14px;
+    line-height:1.9;
+}
+.hoosh-theme .learning-search-form {
+    display:grid;
+    grid-template-columns:22px minmax(0,1fr) auto;
+    align-items:center;
+    gap:10px;
+    width:100%;
+    min-width:0;
+    min-height:56px;
+    padding:5px 12px;
+    box-sizing:border-box;
+    border:1px solid #d8e1ee;
+    border-radius:12px;
+    background:#fff;
+    box-shadow:0 3px 12px rgb(23 52 92 / .04);
+    transition:border-color .18s ease,box-shadow .18s ease;
+}
+.hoosh-theme .learning-search-form:focus-within {
+    border-color:#245fdb;
+    box-shadow:0 0 0 3px rgb(36 95 219 / .12);
+}
+.hoosh-theme .learning-search-icon { width:20px;height:20px;color:#71829a; }
+.hoosh-theme .learning-search-form input {
+    display:block;
+    width:100%;
+    min-width:0;
+    height:44px;
+    margin:0;
+    padding:0;
+    border:0;
+    outline:0;
+    box-shadow:none;
+    background:transparent;
+    color:#17345c;
+    font:inherit;
+    font-size:14px;
+    line-height:44px;
+    transform:none;
+}
+.hoosh-theme .learning-search-form input:focus {
+    width:100%;
+    margin:0;
+    padding:0;
+    border:0;
+    outline:0;
+    box-shadow:none;
+    transform:none;
+}
+.hoosh-theme .learning-search-form input::placeholder { color:#91a0b4;opacity:1; }
+.hoosh-theme .learning-search-form .btn {
+    flex-shrink:0;
+    min-height:42px;
+    padding:0 17px;
+    border:0;
+    white-space:nowrap;
+    transform:none;
+}
+.hoosh-theme .learning-empty-tile {
+    min-width:0;
+    min-height:250px;
+    border:1px solid #e7edf5;
+    border-radius:20px;
+    background:#fff;
+}
+.hoosh-theme .learning-empty-tile:nth-child(3) { background:#fbfcfe; }
+.hoosh-theme .visually-hidden {
+    position:absolute!important;
+    width:1px!important;
+    height:1px!important;
+    padding:0!important;
+    margin:-1px!important;
+    overflow:hidden!important;
+    clip:rect(0,0,0,0)!important;
+    white-space:nowrap!important;
+    border:0!important;
+}
+@media(max-width:900px) {
+    .hoosh-theme .learning-discovery-grid { grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr); }
+    .hoosh-theme .learning-empty-tile:last-child { display:none; }
+}
+@media(max-width:600px) {
+    .hoosh-theme .learning-discovery-grid { grid-template-columns:minmax(0,1fr);gap:12px; }
+    .hoosh-theme .learning-search-panel { min-height:240px;padding:22px 18px; }
+    .hoosh-theme .learning-empty-tile { min-height:110px; }
+    .hoosh-theme .learning-empty-tile:last-child { display:block; }
+    .hoosh-theme .learning-search-form { grid-template-columns:20px minmax(0,1fr);gap:8px;padding:8px 10px; }
+    .hoosh-theme .learning-search-form input { grid-column:2;grid-row:1; }
+    .hoosh-theme .learning-search-form .btn { grid-column:1/-1;width:100%; }
+}
+@media(prefers-reduced-motion:reduce) {
+    .hoosh-theme .learning-search-form { transition:none; }
+}
