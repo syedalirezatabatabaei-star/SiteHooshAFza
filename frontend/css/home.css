@@ -144,3 +144,164 @@
   .hoosh-theme .hero-stat-number { font-size:14px; }
   .hoosh-theme .navbar-actions .btn { min-height:40px; }
 }
+
+
+/* Modern editorial homepage: inspired by contemporary learning platforms */
+.hoosh-theme {
+  background:#fff;
+  color:#172033;
+  --home-ink:#172033;
+  --home-muted:#647087;
+  --home-blue:#245fdb;
+  --home-border:#e4e9f1;
+}
+.hoosh-theme .container { max-width:1320px; }
+.hoosh-theme .navbar { background:rgba(255,255,255,.97); border-color:#e7ebf2; }
+.hoosh-theme .navbar-inner { height:74px; }
+.hoosh-theme .navbar-brand-text { background:none; -webkit-text-fill-color:#172033; color:#172033; }
+.hoosh-theme .navbar-link { color:#566176; }
+.hoosh-theme .navbar-link:hover,.hoosh-theme .navbar-link.active { color:#245fdb; }
+.hoosh-theme .navbar-link.active::after { background:#245fdb; bottom:-12px; }
+.hoosh-theme .navbar-actions .btn-ghost,.hoosh-theme .navbar-toggle { color:#27364f; }
+.hoosh-theme .btn { border-radius:9px; font-weight:650; }
+.hoosh-theme .btn-primary,.hoosh-theme .hero-actions .btn-primary { background:#245fdb; border-color:#245fdb; color:#fff; box-shadow:none; }
+.hoosh-theme .btn-primary:hover,.hoosh-theme .hero-actions .btn-primary:hover { background:#1d4ed8; }
+.hoosh-theme .btn-outline,.hoosh-theme .hero-actions .btn-outline { background:#fff; border-color:#d6deea; color:#27364f; }
+.hoosh-theme .btn-outline:hover,.hoosh-theme .hero-actions .btn-outline:hover { background:#eff6ff; border-color:#b8cdfa; color:#1d4ed8; }
+
+/* Bright, human-centered hero rather than the generic dark AI gradient */
+.hoosh-theme .hero-section {
+  background:linear-gradient(180deg,#f7f9fe 0%,#fff 100%);
+  padding:62px 0 48px;
+  border-bottom:1px solid #edf0f6;
+}
+.hoosh-theme .hero-grid { grid-template-columns:minmax(0,1.04fr) minmax(0,.96fr); gap:clamp(28px,5vw,72px); align-items:center; }
+.hoosh-theme .hero-content { max-width:650px; }
+.hoosh-theme .hero-badge {
+  display:inline-flex; align-items:center; gap:8px;
+  color:#245fdb; background:#eaf1ff; border:1px solid #dce7ff;
+  border-radius:6px; font-size:12px; font-weight:700; padding:6px 12px;
+}
+.hoosh-theme .hero-title { color:#172033; font-size:clamp(32px,4vw,52px); font-weight:800; line-height:1.55; letter-spacing:-1.2px; margin:18px 0 14px; }
+.hoosh-theme .hero-title span { background:none; color:#245fdb; -webkit-text-fill-color:#245fdb; }
+.hoosh-theme .hero-subtitle { color:#5e6b82; font-size:16px; line-height:2.15; max-width:540px; }
+.hoosh-theme .hero-actions { gap:12px; margin-top:24px; margin-bottom:30px; }
+.hoosh-theme .hero-actions .btn { min-height:48px; padding-inline:22px; }
+.hoosh-theme .hero-stats { grid-template-columns:repeat(3,minmax(0,1fr)); gap:0; margin-top:26px; border-top:1px solid #e4e9f1; padding-top:20px; }
+.hoosh-theme .hero-stat-item { border:0; border-inline-start:1px solid #e4e9f1; padding:2px 16px; gap:9px; }
+.hoosh-theme .hero-stat-item:first-child { padding-inline-start:0; }
+.hoosh-theme .hero-stat-item:last-child { border:0; }
+.hoosh-theme .hero-stat-icon { color:#245fdb; }
+.hoosh-theme .hero-stat-number { color:#24324b; font-size:15px; font-weight:750; }
+.hoosh-theme .hero-stat-label { color:#6a768b; font-size:11px; }
+.hoosh-theme .hero-visual { min-height:0; display:flex; align-items:center; justify-content:center; }
+.hero-art-crop { aspect-ratio:1.12; border-radius:20px; background:#edf3ff; box-shadow:0 20px 55px rgb(35 68 130 / .08); }
+.hero-reference-art { top:-17%; }
+
+/* More whitespace, clear section hierarchy and calmer course catalogue */
+.hoosh-theme .section { padding:64px 0; }
+.hoosh-theme .section[style*="bg-secondary"] { background:#f7f9fc!important; }
+.hoosh-theme .section-title { color:#172033; font-size:clamp(22px,2.2vw,30px); font-weight:800; line-height:1.5; margin-bottom:8px; }
+.hoosh-theme .section-subtitle { color:#69758b; font-size:14px; line-height:1.9; margin-bottom:30px; }
+.hoosh-theme .section-header { margin-bottom:28px; }
+.hoosh-theme .category-grid { grid-template-columns:repeat(5,minmax(0,1fr)); gap:14px; }
+.hoosh-theme .category-card {
+  position:relative; background:#fff; border:1px solid #e4e9f1; border-radius:12px;
+  padding:23px 16px 18px; text-align:right; box-shadow:0 2px 7px rgb(15 23 42 / .025);
+}
+.hoosh-theme .category-card:hover { background:#fff; border-color:#b9cdf8; box-shadow:0 8px 22px rgb(36 95 219 / .07); transform:translateY(-2px); }
+.hoosh-theme .category-icon { width:48px; height:48px; border-radius:11px; background:#eff4ff; color:#245fdb; margin-bottom:17px; }
+.hoosh-theme .category-icon .ui-icon { width:25px; height:25px; }
+.hoosh-theme .category-title { font-size:14px; font-weight:750; color:#202d44; }
+.hoosh-theme .category-description { font-size:12px; color:#738096; line-height:1.8; }
+.hoosh-theme .category-arrow { margin-top:10px; color:#245fdb; }
+.hoosh-theme .courses-grid { grid-template-columns:repeat(4,minmax(0,1fr)); gap:20px; }
+.hoosh-theme .course-card { border:1px solid #e4e9f1; border-radius:13px; background:#fff; box-shadow:0 2px 8px rgb(15 23 42 / .03); }
+.hoosh-theme .course-card:hover { border-color:#c8d6f4; box-shadow:0 12px 28px rgb(15 23 42 / .075); transform:translateY(-3px); }
+.hoosh-theme .course-card .card-image-wrapper { aspect-ratio:16/9; height:auto; background:#eef2f8; }
+.hoosh-theme .course-card .card-image { object-fit:cover; }
+.hoosh-theme .course-type-badge { top:12px; right:12px; background:#fff; color:#245fdb; border:1px solid #e3eaff; border-radius:5px; padding:4px 8px; font-size:10px; font-weight:700; }
+.hoosh-theme .course-card .card-body { padding:16px 17px 12px; }
+.hoosh-theme .course-card .card-title { color:#202d44; font-size:15px; line-height:1.8; }
+.hoosh-theme .course-card .card-text { color:#6b778d; font-size:12px; line-height:1.9; }
+.hoosh-theme .course-card .card-footer { padding:13px 16px 15px; border-top:1px solid #edf0f5; }
+.hoosh-theme .price { color:#172033; font-size:14px; font-weight:800; }
+.hoosh-theme .course-card .card-footer .btn { font-size:11px; min-height:36px; }
+
+/* Benefits and path become clean editorial sections, not decorative dashboards */
+.hoosh-theme .benefits-grid { grid-template-columns:repeat(4,minmax(0,1fr)); gap:20px; }
+.hoosh-theme .benefit-card { text-align:right; border:1px solid #e4e9f1; border-radius:12px; background:#fff; padding:23px 21px; }
+.hoosh-theme .benefit-icon { display:grid; place-items:center; width:46px; height:46px; border-radius:10px; background:#eff4ff; color:#245fdb; font-size:25px; margin-bottom:16px; }
+.hoosh-theme .benefit-title { font-size:15px; color:#202d44; }
+.hoosh-theme .benefit-description { color:#69758b; font-size:12px; line-height:2; }
+.path-section .container { background:#f6f8fc; border:1px solid #e5eaf2; border-radius:16px; padding:36px; color:#172033; }
+.hoosh-theme .path-section .section-title { color:#172033; text-align:right; }
+.hoosh-theme .path-section .section-subtitle { color:#69758b; text-align:right; }
+.hoosh-theme .learning-path { gap:10px; }
+.hoosh-theme .step-icon { width:58px; height:58px; border:1px solid #d9e4fa; background:#eaf1ff; color:#245fdb; border-radius:13px; font-size:24px; }
+.hoosh-theme .step-title { color:#25334b; font-size:13px; font-weight:750; }
+.hoosh-theme .step-description { display:block; color:#6b778d; font-size:11px; line-height:1.8; }
+.hoosh-theme .path-connector { color:#9aafd8; }
+
+/* Helpful CTA without the typical neon AI gradient */
+.assistant-banner { background:#f0f5ff; border:1px solid #dce7fb; border-radius:14px; padding:28px 32px; }
+.assistant-banner h2 { color:#1d3f91; font-size:21px; }
+.assistant-banner p { color:#5f6f8b; font-size:13px; line-height:2; }
+.assistant-symbol { color:#245fdb; }
+.hoosh-theme .instructors-grid { grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; }
+.instructor-tile { border:1px solid #e4e9f1; border-radius:12px; padding:17px; }
+.instructor-avatar { border-radius:10px; background:#eff4ff; color:#245fdb; }
+.instructor-tile h3 { color:#202d44; font-size:14px; }
+.instructor-tile p { color:#6b778d; line-height:1.8; }
+.start-banner { background:#172b4d; border-radius:16px; padding:40px 28px; }
+.start-banner h2 { font-size:25px; }
+.start-banner p { color:#c7d3e7; }
+.hoosh-theme .footer { background:#101d33; margin-top:0; }
+.hoosh-theme .load-state { background:#f8faff; border-color:#dce4f0; border-radius:12px; }
+
+/* Responsive behavior */
+@media(max-width:1023px) {
+  .hoosh-theme .hero-section { padding:45px 0; }
+  .hoosh-theme .hero-grid { grid-template-columns:1fr 1fr; gap:24px; }
+  .hoosh-theme .category-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .hoosh-theme .courses-grid,.hoosh-theme .instructors-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .hoosh-theme .benefits-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .hoosh-theme .step-description { display:none; }
+}
+@media(max-width:640px) {
+  .hoosh-theme .navbar-inner { height:66px; gap:8px; }
+  .hoosh-theme .hero-section { padding:28px 0 34px; }
+  .hoosh-theme .hero-grid { grid-template-columns:1fr; gap:24px; }
+  .hoosh-theme .hero-visual { order:0; }
+  .hero-art-crop { max-width:440px; margin:auto; border-radius:14px; }
+  .hoosh-theme .hero-content { text-align:right; }
+  .hoosh-theme .hero-title { font-size:29px; line-height:1.65; margin-top:14px; }
+  .hoosh-theme .hero-subtitle { font-size:14px; }
+  .hoosh-theme .hero-actions { justify-content:flex-start; flex-wrap:wrap; }
+  .hoosh-theme .hero-stats { margin-top:20px; padding-top:16px; }
+  .hoosh-theme .hero-stat-item { padding:0 8px; }
+  .hoosh-theme .hero-stat-number { font-size:12px; }
+  .hoosh-theme .hero-stat-label { font-size:10px; }
+  .hoosh-theme .section { padding:42px 0; }
+  .hoosh-theme .section-title { font-size:22px; }
+  .hoosh-theme .category-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+  .hoosh-theme .category-card { padding:16px 13px; }
+  .hoosh-theme .courses-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+  .hoosh-theme .course-card .card-body { padding:12px; }
+  .hoosh-theme .course-card .card-title { font-size:12px; }
+  .hoosh-theme .course-card .card-text { font-size:11px; }
+  .hoosh-theme .course-card .card-footer { padding:10px; gap:6px; flex-wrap:wrap; }
+  .hoosh-theme .course-card .card-footer .btn { font-size:10px; padding:7px 9px; }
+  .hoosh-theme .benefits-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+  .hoosh-theme .benefit-card { padding:16px 13px; }
+  .path-section .container { width:calc(100% - 28px); padding:22px 15px; }
+  .hoosh-theme .learning-path { grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px 8px; }
+  .hoosh-theme .step-icon { width:48px; height:48px; font-size:20px; }
+  .hoosh-theme .step-title { font-size:11px; }
+  .hoosh-theme .step-description { display:none; }
+  .assistant-banner { padding:20px; gap:14px; }
+  .assistant-banner h2 { font-size:18px; }
+  .hoosh-theme .instructors-grid { grid-template-columns:1fr; }
+  .start-banner { padding:28px 18px; }
+  .start-banner h2 { font-size:21px; }
+}

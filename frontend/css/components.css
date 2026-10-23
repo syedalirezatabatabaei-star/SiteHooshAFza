@@ -902,3 +902,40 @@ tr:hover td {
   margin-bottom: var(--space-3);
   padding-right: var(--space-2);
 }
+
+
+/* Refined shared controls and cards */
+.btn {
+  border-width:1px;
+  border-radius:9px;
+  padding:.68rem 1.2rem;
+  font-weight:650;
+  letter-spacing:0;
+  box-shadow:none;
+}
+.btn-primary {
+  background:#245fdb;
+  border-color:#245fdb;
+  color:#fff;
+}
+.btn-primary:hover:not(:disabled) { background:#1d4ed8; border-color:#1d4ed8; }
+.btn-secondary { background:#0f766e; border-color:#0f766e; }
+.btn-outline { border-color:#cbd5e1; color:#27364f; background:#fff; }
+.btn-outline:hover:not(:disabled) { border-color:#245fdb; background:#eff6ff; color:#1d4ed8; }
+.btn-ghost:hover:not(:disabled) { background:#f1f5f9; }
+.card {
+  border-color:#e4e9f1;
+  border-radius:14px;
+  box-shadow:0 2px 8px rgb(15 23 42 / .035);
+}
+.card:hover { box-shadow:0 12px 28px rgb(15 23 42 / .08); transform:translateY(-2px); }
+.card-title { letter-spacing:-.015em; }
+input,select,textarea,.form-control {
+  border-radius:9px;
+  border-color:#d8e0eb;
+}
+input:focus,select:focus,textarea:focus,.form-control:focus {
+  border-color:#6d9af7;
+  box-shadow:0 0 0 3px rgb(59 130 246 / .12);
+  outline:none;
+}
