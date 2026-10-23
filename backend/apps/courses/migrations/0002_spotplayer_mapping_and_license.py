@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('external_license_id', models.CharField(blank=True, max_length=120, verbose_name='شناسه لایسنس خارجی')),
                 ('license_key', models.CharField(blank=True, max_length=500, verbose_name='کد لایسنس')),
-                ('license_url', models.URLField(blank=True, max_length=1000, verbose_name='آدرس دریافت لایسنس')),
+                ('license_url', models.CharField(blank=True, max_length=1000, verbose_name='آدرس دریافت لایسنس')),
                 ('status', models.CharField(choices=[('PENDING', 'در انتظار صدور'), ('CREATED', 'صادر شده'), ('FAILED', 'ناموفق')], db_index=True, default='PENDING', max_length=10, verbose_name='وضعیت')),
                 ('error_message', models.TextField(blank=True, verbose_name='خطا')),
                 ('provider_response', models.JSONField(blank=True, default=dict, verbose_name='پاسخ سرویس')),
