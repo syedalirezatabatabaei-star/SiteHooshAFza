@@ -131,11 +131,11 @@ const Header = (() => {
     }
 
     function initActiveLinks() {
-        const path = window.location.pathname.replace(/\\/+$/, '') || '/';
+        const path = window.location.pathname.replace(/\/+$/, '') || '/';
         const links = document.querySelectorAll('.navbar-link[href], .mobile-menu-link[href]');
         links.forEach(link => {
             const url = new URL(link.href, window.location.origin);
-            const target = url.pathname.replace(/\\/+$/, '') || '/';
+            const target = url.pathname.replace(/\/+$/, '') || '/';
             if (target === path && !url.search) {
                 link.classList.add('active');
                 link.setAttribute('aria-current', 'page');
