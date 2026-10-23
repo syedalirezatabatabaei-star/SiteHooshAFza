@@ -28,24 +28,53 @@
     <script src="/js/utils.js"></script>
     <script src="/js/components/header.js"></script>
     <script src="/js/components/footer.js"></script>
+    <script src="/js/components/course-card.js"></script>
     <script>
+        const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
         document.addEventListener('DOMContentLoaded', async () => {
             Header.init(); Footer.init();
             const c = document.getElementById('instructorsGrid');
+            const slug = Utils.getUrlParam('slug');
             try {
-                const data = await API.get('/instructors');
-                if (data.items && data.items.length > 0) {
-                    c.innerHTML = data.items.map(i => `
-                        <div class="card" style="padding:var(--space-6);text-align:center">
-                            <img src="${i.profile_image || '/assets/images/placeholder.jpg'}" alt="${i.name}"
-                                 style="width:120px;height:120px;border-radius:50%;object-fit:cover;margin:0 auto var(--space-4)">
-                            <h3 style="margin-bottom:var(--space-2)">${i.name}</h3>
-                            <p class="badge badge-primary" style="margin-bottom:var(--space-2)">${i.specialization}</p>
-                            <p class="text-sm text-muted">${(i.bio || '').substring(0, 150)}${i.bio && i.bio.length > 150 ? '…' : ''}</p>
-                        </div>
-                    `).join('');
-                } else { Utils.showEmpty(c, 'مدرسی یافت نشد'); }
-            } catch(e) { Utils.showError(c, e.message); }
+                if (slug) {
+                    const result = await API.get('/instructors/' + encodeURIComponent(slug));
+                    const instructor = result.instructor;
+                    document.title = (instructor.name || 'مدرس') + ' | هوش افزا';
+                    c.innerHTML = `
+                        <article class="card" style="padding:var(--space-6)">
+                            <div class="flex items-center gap-4">
+                                <img src="${escapeHtml(instructor.profile_image || '/assets/images/placeholder.jpg')}" alt="${escapeHtml(instructor.name)}" style="width:120px;height:120px;border-radius:50%;object-fit:cover">
+                                <div><h1 class="section-title">${escapeHtml(instructor.name)}</h1><p class="badge badge-primary">${escapeHtml(instructor.specialization || 'مدرس هوش افزا')}</p></div>
+                            </div>
+                            <p style="margin-top:var(--space-4);line-height:1.9">${escapeHtml(instructor.bio || '')}</p>
+                            ${instructor.education ? `<p><strong>تحصیلات:</strong> ${escapeHtml(instructor.education)}</p>` : ''}
+                            ${instructor.experience ? `<p><strong>تجربه:</strong> ${escapeHtml(instructor.experience)}</p>` : ''}
+                        </article>
+                        <section class="section" style="grid-column:1/-1">
+                            <h2 class="section-title">دوره‌های این مدرس</h2>
+                            <div id="instructorCourses" class="grid grid-3"></div>
+                        </section>`;
+                    const courseContainer = document.getElementById('instructorCourses');
+                    if (Array.isArray(result.courses) && result.courses.length) {
+                        courseContainer.innerHTML = result.courses.map(renderCourseCard).join('');
+                    } else {
+                        Utils.showEmpty(courseContainer, 'هنوز دوره‌ای برای این مدرس منتشر نشده است');
+                    }
+                } else {
+                    const data = await API.get('/instructors?page=1&page_size=50');
+                    const items = Array.isArray(data) ? data : (data.items || []);
+                    if (items.length) {
+                        c.innerHTML = items.map(i => `
+                            <a href="/pages/instructors.html?slug=${encodeURIComponent(i.slug)}" class="card" style="padding:var(--space-6);text-align:center;display:block">
+                                <img src="${escapeHtml(i.profile_image || '/assets/images/placeholder.jpg')}" alt="${escapeHtml(i.name)}" loading="lazy" style="width:120px;height:120px;border-radius:50%;object-fit:cover;margin:0 auto var(--space-4)">
+                                <h3 style="margin-bottom:var(--space-2)">${escapeHtml(i.name)}</h3>
+                                <p class="badge badge-primary" style="margin-bottom:var(--space-2)">${escapeHtml(i.specialization || 'مدرس هوش افزا')}</p>
+                                <p class="text-sm text-muted">${escapeHtml((i.bio || '').substring(0, 150))}${i.bio && i.bio.length > 150 ? '…' : ''}</p>
+                            </a>
+                        `).join('');
+                    } else { Utils.showEmpty(c, 'مدرسی یافت نشد'); }
+                }
+            } catch(e) { Utils.showError(c, e.message || 'خطا در دریافت اطلاعات مدرس'); }
         });
     </script>
 </body>
