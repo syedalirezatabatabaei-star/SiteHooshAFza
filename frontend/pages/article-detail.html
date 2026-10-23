@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
+    <title>مقاله | هوش افزا</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/pages.css">
+    <link rel="stylesheet" href="/css/home.css">
+</head>
+<body class="hoosh-theme">
+    <div id="header"></div>
+    <section class="section">
+        <div class="container" style="max-width:800px">
+            <div id="articleContent"><div class="loading-overlay"><div class="spinner spinner-lg"></div></div></div>
+        </div>
+    </section>
+    <div id="footer"></div>
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/utils.js"></script>
+    <script src="/js/components/header.js"></script>
+    <script src="/js/components/footer.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            Header.init(); Footer.init();
+            const slug = Utils.getUrlParam('slug');
+            const c = document.getElementById('articleContent');
+            if (!slug) { Utils.showError(c, 'شناسه مقاله نامعتبر'); return; }
+            try {
+                const a = await API.get(`/articles/${slug}`);
+                document.title = `${a.title} | هوش افза`;
+                c.innerHTML = `
+                    <div class="article-meta mb-4">
+                        ${a.category ? `<span>${a.category.name}</span>` : ''}
+                        <span>${a.author_name}</span>
+                        ${a.published_at ? `<span>${Utils.formatDate(a.published_at)}</span>` : ''}
+                        <span>${a.view_count} بازدید</span>
+                    </div>
+                    <h1 style="margin-bottom:var(--space-6)">${a.title}</h1>
+                    ${a.featured_image ? `<img src="${a.featured_image}" alt="${a.title}" style="width:100%;border-radius:var(--border-radius-lg);margin-bottom:var(--space-6)">` : ''}
+                    <div class="article-content">${a.content}</div>
+                    ${a.tags && a.tags.length > 0 ? `<div class="mt-8">${a.tags.map(t => `<span class="badge badge-primary" style="margin-left:var(--space-2)">${t.name}</span>`).join('')}</div>` : ''}
+                `;
+            } catch(e) { Utils.showError(c, e.message); }
+        });
+    </script>
+</body>
+</html>

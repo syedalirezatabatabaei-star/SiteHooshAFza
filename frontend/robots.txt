@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /pages/dashboard.html
+Disallow: /pages/admin-dashboard.html
+Disallow: /pages/cart.html
+Disallow: /pages/login.html
+Disallow: /pages/register.html
+
+Sitemap: /sitemap.xml

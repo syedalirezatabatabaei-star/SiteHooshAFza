@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
+    <title>داشبورد | هوش افزا</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/pages.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+    <div id="header"></div>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-user-name" id="userName">—</div>
+                <div class="sidebar-user-role" id="userRole">دانشجو</div>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#overview" class="sidebar-link active" onclick="switchTab('overview')"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#chart"></use></svg> پیشخوان</a>
+                <a href="#courses" class="sidebar-link" onclick="switchTab('courses')"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#book"></use></svg> دوره‌های من</a>
+                <a href="#orders" class="sidebar-link" onclick="switchTab('orders')"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#book"></use></svg> سفارشات</a>
+                <a href="#certificates" class="sidebar-link" onclick="switchTab('certificates')"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#target"></use></svg> گواهینامه‌ها</a>
+                <a href="#notifications" class="sidebar-link" onclick="switchTab('notifications')"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#bell"></use></svg> اعلان‌ها</a>
+                <a href="#tickets" class="sidebar-link" onclick="switchTab('tickets')"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#mail"></use></svg> تیکت‌ها</a>
+                <a href="#profile" class="sidebar-link" onclick="switchTab('profile')"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#users"></use></svg> پروفایل</a>
+                <a href="/pages/cart.html" class="sidebar-link"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#cart"></use></svg> سبد خرید</a>
+            </nav>
+        </aside>
+
+        <!-- Mobile Sidebar Toggle -->
+        <button class="mobile-sidebar-toggle btn btn-outline btn-full" onclick="document.getElementById('sidebar').classList.toggle('open')" style="display:none">
+            ☰ منوی داشبورد
+        </button>
+        <style>@media(max-width:1023px){.mobile-sidebar-toggle{display:block!important}.sidebar{display:none!important;position:fixed;top:64px;right:0;width:260px;z-index:300;box-shadow:var(--shadow-xl)}.sidebar.open{display:block!important}}</style>
+
+        <!-- Content -->
+        <main class="dashboard-content">
+            <div id="tabContent"></div>
+        </main>
+    </div>
+
+    <div id="footer"></div>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/utils.js"></script>
+    <script src="/js/components/header.js"></script>
+    <script src="/js/components/footer.js"></script>
+    <script>
+        if (!Auth.isLoggedIn()) { window.location.href = '/pages/login.html'; }
+
+        const user = Auth.getUser();
+        if (user) {
+            document.getElementById('userName').textContent = user.first_name + ' ' + user.last_name;
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tab}')"]`)?.classList.add('active');
+            const content = document.getElementById('tabContent');
+            loadTab(tab, content);
+        }
+
+        async function loadTab(tab, container) {
+            container.innerHTML = '<div class="loading-overlay"><div class="spinner spinner-lg"></div></div>';
+
+            switch(tab) {
+                case 'overview':
+                    try {
+                        const enrollments = await API.get('/enrollments');
+                        const notifData = await API.get('/notifications/count');
+                        container.innerHTML = `
+                            <h1 style="margin-bottom:var(--space-6)">پیشخوان ${user.first_name} </h1>
+                            <div class="grid grid-3" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">
+                                <div class="card" style="padding:var(--space-6);text-align:center">
+                                    <div style="font-size:2rem"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#book"></use></svg></div>
+                                    <div style="font-size:var(--text-2xl);font-weight:800">${enrollments.length}</div>
+                                    <div class="text-muted text-sm">دوره ثبت‌نام شده</div>
+                                </div>
+                                <div class="card" style="padding:var(--space-6);text-align:center">
+                                    <div style="font-size:2rem"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#bell"></use></svg></div>
+                                    <div style="font-size:var(--text-2xl);font-weight:800">${notifData.unread}</div>
+                                    <div class="text-muted text-sm">اعلان خوانده نشده</div>
+                                </div>
+                                <div class="card" style="padding:var(--space-6);text-align:center">
+                                    <div style="font-size:2rem"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#target"></use></svg></div>
+                                    <div style="font-size:var(--text-2xl);font-weight:800">—</div>
+                                    <div class="text-muted text-sm">گواهینامه</div>
+                                </div>
+                            </div>
+                            ${enrollments.length > 0 ? `
+                                <h3 class="mt-8 mb-4">ادامه یادگیری</h3>
+                                ${enrollments.slice(0, 3).map(e => `
+                                    <div class="card mb-4" style="padding:var(--space-4)">
+                                        <div class="flex items-center gap-4">
+                                            <img src="${e.course_thumbnail || '/assets/images/placeholder.jpg'}" alt="${e.course_title}"
+                                                 style="width:80px;height:60px;object-fit:cover;border-radius:var(--border-radius)">
+                                            <div style="flex:1">
+                                                <h4 style="font-size:var(--text-base)">${e.course_title}</h4>
+                                                <div class="progress-bar mt-2">
+                                                    <div class="progress-fill" style="width:${e.progress}%"></div>
+                                                </div>
+                                                <span class="text-sm text-muted">${e.progress}% تکمیل شده</span>
+                                            </div>
+                                            <a href="/pages/course-detail.html?slug=${e.course_slug}" class="btn btn-sm btn-primary">ادامه</a>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            ` : ''}
+                        `;
+                    } catch(e) { Utils.showError(container, e.message); }
+                    break;
+
+                case 'courses':
+                    try {
+                        const enrollments = await API.get('/enrollments');
+                        if (enrollments.length === 0) {
+                            Utils.showEmpty(container, 'هنوز در دوره‌ای ثبت‌نام نکرده‌اید');
+                            return;
+                        }
+                        container.innerHTML = `
+                            <h1 style="margin-bottom:var(--space-6)">دوره‌های من</h1>
+                            ${enrollments.map(e => `
+                                <div class="card mb-4" style="padding:var(--space-4)">
+                                    <div class="flex items-center gap-4">
+                                        <img src="${e.course_thumbnail || '/assets/images/placeholder.jpg'}" alt="${e.course_title}"
+                                             style="width:120px;height:80px;object-fit:cover;border-radius:var(--border-radius)">
+                                        <div style="flex:1">
+                                            <h3 style="font-size:var(--text-base)">${e.course_title}</h3>
+                                            <div class="flex items-center gap-2 mt-1">
+                                                ${Utils.getStatusBadge(e.status)}
+                                                <span class="text-sm text-muted">${e.course_type === 'IN_PERSON' ? 'حضوری' : 'ضبط‌شده'}</span>
+                                            </div>
+                                            <div class="progress-bar mt-2" style="max-width:300px">
+                                                <div class="progress-fill" style="width:${e.progress}%"></div>
+                                            </div>
+                                            <span class="text-sm text-muted">${e.progress}%</span>
+                                        </div>
+                                        <a href="/pages/course-detail.html?slug=${e.course_slug}" class="btn btn-sm btn-primary">مشاهده</a>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        `;
+                    } catch(e) { Utils.showError(container, e.message); }
+                    break;
+
+                case 'orders':
+                    try {
+                        const orders = await API.get('/orders');
+                        if (orders.length === 0) {
+                            Utils.showEmpty(container, 'هنوز سفارشی ثبت نکرده‌اید');
+                            return;
+                        }
+                        container.innerHTML = `
+                            <h1 style="margin-bottom:var(--space-6)">سفارشات</h1>
+                            <div class="table-responsive">
+                                <table>
+                                    <thead><tr><th>شماره</th><th>مبلغ</th><th>وضعیت</th><th>تاریخ</th></tr></thead>
+                                    <tbody>
+                                        ${orders.map(o => `
+                                            <tr>
+                                                <td>#${o.id}</td>
+                                                <td class="price">${Utils.formatPrice(o.final_amount)}</td>
+                                                <td>${Utils.getStatusBadge(o.status)} ${o.status === 'PENDING' ? `<button type="button" class="btn btn-sm btn-outline" onclick="payOrder(${o.id}, this)">پیگیری پرداخت</button>` : ''}</td>
+                                                <td>${Utils.formatDate(o.created_at)}</td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        `;
+                    } catch(e) { Utils.showError(container, e.message); }
+                    break;
+
+                case 'certificates':
+                    try {
+                        const certs = await API.get('/certificates');
+                        if (certs.length === 0) {
+                            Utils.showEmpty(container, 'هنوز گواهینامه‌ای دریافت نکرده‌اید');
+                            return;
+                        }
+                        container.innerHTML = `
+                            <h1 style="margin-bottom:var(--space-6)">گواهینامه‌ها</h1>
+                            ${certs.map(c => `
+                                <div class="card mb-4" style="padding:var(--space-6)">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <h3>${c.course_title}</h3>
+                                            <p class="text-sm text-muted">شماره: ${c.certificate_number}</p>
+                                            <p class="text-sm text-muted">تاریخ صدور: ${Utils.formatDate(c.issue_date)}</p>
+                                        </div>
+                                        <div class="flex gap-2">
+                                            <button onclick="navigator.clipboard.writeText('${c.verification_code}')" class="btn btn-sm btn-outline">
+                                                کپی کد تأیید
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        `;
+                    } catch(e) { Utils.showError(container, e.message); }
+                    break;
+
+                case 'notifications':
+                    try {
+                        const notifs = await API.get('/notifications');
+                        container.innerHTML = `
+                            <div class="flex justify-between items-center mb-6">
+                                <h1>اعلان‌ها</h1>
+                                <button onclick="markAllRead()" class="btn btn-sm btn-outline">همه خوانده شد</button>
+                            </div>
+                            ${notifs.length === 0 ? '<div class="empty-state"><div class="empty-state-icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#bell"></use></svg></div><p>اعلانی وجود ندارد</p></div>' :
+                            notifs.map(n => `
+                                <div class="card mb-3" style="padding:var(--space-4);${!n.is_read ? 'border-right:3px solid var(--primary-500)' : ''}">
+                                    <div class="flex justify-between items-center">
+                                        <h4 style="font-size:var(--text-sm)">${n.title}</h4>
+                                        <span class="text-xs text-muted">${Utils.formatDateTime(n.created_at)}</span>
+                                    </div>
+                                    <p class="text-sm text-muted mt-2">${n.message}</p>
+                                    ${!n.is_read ? `<button onclick="markRead(${n.id})" class="btn btn-sm btn-ghost mt-2">خواندم</button>` : ''}
+                                </div>
+                            `).join('')}
+                        `;
+                    } catch(e) { Utils.showError(container, e.message); }
+                    break;
+
+                case 'tickets':
+                    try {
+                        const tickets = await API.get('/tickets');
+                        container.innerHTML = `
+                            <div class="flex justify-between items-center mb-6">
+                                <h1>تیکت‌های پشتیبانی</h1>
+                                <button onclick="showTicketForm()" class="btn btn-sm btn-primary">تیکت جدید</button>
+                            </div>
+                            <div id="ticketForm" class="hidden card mb-4" style="padding:var(--space-4)">
+                                <div class="form-group"><label class="form-label">موضوع</label><input class="form-input" id="ticketSubject"></div>
+                                <div class="form-group"><label class="form-label">متن</label><textarea class="form-textarea" id="ticketMessage"></textarea></div>
+                                <button onclick="submitTicket()" class="btn btn-primary">ارسال</button>
+                            </div>
+                            ${tickets.length === 0 ? '<div class="empty-state"><div class="empty-state-icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#mail"></use></svg></div><p>تیکتی وجود ندارد</p></div>' :
+                            tickets.map(t => `
+                                <div class="card mb-3" style="padding:var(--space-4)">
+                                    <div class="flex justify-between items-center">
+                                        <h4 style="font-size:var(--text-sm)">${t.subject}</h4>
+                                        <div class="flex gap-2 items-center">
+                                            ${Utils.getStatusBadge(t.status)}
+                                            <span class="text-xs text-muted">${Utils.formatDateTime(t.created_at)}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        `;
+                    } catch(e) { Utils.showError(container, e.message); }
+                    break;
+
+                case 'profile':
+                    container.innerHTML = `
+                        <h1 style="margin-bottom:var(--space-6)">پروفایل</h1>
+                        <div class="card" style="padding:var(--space-6);max-width:500px">
+                            <div class="form-group">
+                                <label class="form-label">نام</label>
+                                <input class="form-input" id="profileFirstName" value="${user.first_name}">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">نام خانوادگی</label>
+                                <input class="form-input" id="profileLastName" value="${user.last_name}">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">ایمیل</label>
+                                <input class="form-input" id="profileEmail" value="${user.email || ''}">
+                            </div>
+                            <button onclick="updateProfile()" class="btn btn-primary">ذخیره تغییرات</button>
+                        </div>
+                    `;
+                    break;
+            }
+        }
+
+        async function markRead(id) { await API.put(`/notifications/${id}/read`); switchTab('notifications'); }
+        async function payOrder(id, button) {
+            button.disabled = true;
+            try {
+                const result = await API.initiatePayment(id);
+                if (result.payment_url && /^https?:\/\//.test(result.payment_url)) {
+                    window.location.href = result.payment_url;
+                } else { Utils.showToast(result.message || 'برای تکمیل پرداخت با پشتیبانی تماس بگیرید'); }
+            } catch (error) { Utils.showToast(error.message, 'error'); }
+            finally { button.disabled = false; }
+        }
+        async function markAllRead() { await API.put('/notifications/read-all'); switchTab('notifications'); }
+        function showTicketForm() { document.getElementById('ticketForm').classList.toggle('hidden'); }
+        async function submitTicket() {
+            const subject = document.getElementById('ticketSubject').value;
+            const message = document.getElementById('ticketMessage').value;
+            if (!subject || !message) { Utils.showToast('لطفاً همه فیلدها را پر کنید', 'error'); return; }
+            await API.post('/tickets', { subject, message });
+            Utils.showToast('تیکت ارسال شد', 'success');
+            switchTab('tickets');
+        }
+        async function updateProfile() {
+            const profile = await API.put('/users/me', {
+                first_name: document.getElementById('profileFirstName').value,
+                last_name: document.getElementById('profileLastName').value,
+                email: document.getElementById('profileEmail').value,
+            });
+            API.setUser(profile);
+            Header.init();
+            Utils.showToast('پروفایل به‌روزرسانی شد', 'success');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            Header.init(); Footer.init();
+            const hash = window.location.hash.replace('#', '') || 'overview';
+            switchTab(hash);
+        });
+    </script>
+</body>
+</html>

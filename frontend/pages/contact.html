@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
+    <title>تماس با ما | هوش افزا</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/pages.css">
+    <link rel="stylesheet" href="/css/home.css">
+</head>
+<body class="hoosh-theme">
+    <div id="header"></div>
+    <section class="py-12">
+        <div class="container" style="max-width:700px">
+            <h1 class="section-title text-center">تماس با ما</h1>
+            <p class="section-subtitle text-center">ما آماده پاسخگویی به سوالات شما هستیم</p>
+            <div class="card" style="padding:var(--space-8)">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);margin-bottom:var(--space-6)">
+                    <div><strong><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#phone"></use></svg> تلفن:</strong><br><a href="tel:+989025100133" dir="ltr">۰۹۰۲۵۱۰۰۱۳۳</a></div>
+                    <div><strong><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#mail"></use></svg> ایمیل:</strong><br>info@hooshafza.ir</div>
+                    <div><strong><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#pin"></use></svg> آدرس:</strong><br>اصفهان، خیابان نشاط، روبروی بانک رفاه، مؤسسه علمی آموزشی هوش افزا</div>
+                    <div><strong><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#clock"></use></svg> ساعت کاری:</strong><br>شنبه تا پنجشنبه ۹ تا ۱۷</div>
+                </div>
+                <form id="contactForm">
+                    <p class="text-sm text-muted">برای ثبت پیام پشتیبانی، <a href="/pages/login.html">وارد حساب کاربری شوید</a>.</p>
+                    <div class="form-group"><label class="form-label" for="contactName">نام</label><input id="contactName" class="form-input" required></div>
+                    <div class="form-group"><label class="form-label" for="contactEmail">ایمیل</label><input id="contactEmail" type="email" class="form-input" required></div>
+                    <div class="form-group"><label class="form-label" for="contactSubject">موضوع</label><input id="contactSubject" class="form-input" required></div>
+                    <div class="form-group"><label class="form-label" for="contactMessage">پیام</label><textarea id="contactMessage" class="form-textarea" required></textarea></div>
+                    <button type="submit" class="btn btn-primary btn-full btn-lg">ارسال پیام</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <div id="footer"></div>
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/components/header.js"></script>
+    <script src="/js/components/footer.js"></script>
+    <script src="/js/utils.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => { Header.init(); Footer.init(); });
+        document.getElementById('contactForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!Auth.isLoggedIn()) { Utils.showToast('برای ارسال پیام ابتدا وارد حساب کاربری شوید', 'error'); return; }
+            const button = e.target.querySelector('button[type="submit"]');
+            button.disabled = true;
+            try {
+                await API.createTicket({
+                    subject: document.getElementById('contactSubject').value.trim(),
+                    message: document.getElementById('contactMessage').value.trim() + '\n\nنام: ' + document.getElementById('contactName').value.trim() + '\nایمیل: ' + document.getElementById('contactEmail').value.trim(),
+                });
+                Utils.showToast('پیام شما در بخش پشتیبانی ثبت شد', 'success');
+                e.target.reset();
+            } catch (error) { Utils.showToast(error.message, 'error'); }
+            finally { button.disabled = false; }
+        });
+    </script>
+</body>
+</html>

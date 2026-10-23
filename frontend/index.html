@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
+    <meta name="description" content="هوش افزا - مؤسسه علمی، آموزشی و پژوهشی | دوره‌های حضوری و آنلاین">
+    <title>هوش افزا | مؤسسه علمی، آموزشی و پژوهشی</title>
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="هوش افزا | مؤسسه علمی، آموزشی و پژوهشی">
+    <meta property="og:description" content="دوره‌های تخصصی حضوری و آنلاین با بهترین مدرسان">
+    <meta property="og:type" content="website">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "EducationalOrganization",
+        "name": "هوش افزا",
+        "description": "مؤسسه علمی، آموزشی و پژوهشی هوش افزا"
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/pages.css">
+    <link rel="stylesheet" href="/css/home.css">
+</head>
+<body class="hoosh-theme">
+    <div id="header"></div>
+
+    <!-- Hero Section -->
+    <section class="hero-section" aria-label="معرفی هوش افزا">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <span class="hero-badge">یادگیری هوش مصنوعی</span>
+                    <h1 class="hero-title">یادگیری هوش مصنوعی،<br><span>از آموزش تا کسب درآمد</span></h1>
+                    <p class="hero-subtitle">
+                        با دوره‌های تخصصی هوش افزا، مهارت‌های مورد نیاز بازار کار را یاد بگیرید.
+                        از مبتدی تا حرفه‌ای، مسیر یادگیری خود را با ما شروع کنید.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="/pages/courses.html" class="btn btn-primary btn-lg">
+                            شروع یادگیری
+                        </a>
+                        <a href="#popularCourses" class="btn btn-outline btn-lg">
+                            مشاهده دوره‌ها
+                        </a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="hero-stat-item">
+                            <div class="hero-stat-icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#users"></use></svg></div>
+                            <div class="hero-stat-info">
+                                <span class="hero-stat-number">گام‌به‌گام</span>
+                                <span class="hero-stat-label">مسیر یادگیری</span>
+                            </div>
+                        </div>
+                        <div class="hero-stat-item">
+                            <div class="hero-stat-icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#book"></use></svg></div>
+                            <div class="hero-stat-info">
+                                <span class="hero-stat-number">پروژه‌محور</span>
+                                <span class="hero-stat-label">آموزش کاربردی</span>
+                            </div>
+                        </div>
+                        <div class="hero-stat-item">
+                            <div class="hero-stat-icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#target"></use></svg></div>
+                            <div class="hero-stat-info">
+                                <span class="hero-stat-number">تخصصی</span>
+                                <span class="hero-stat-label">محتوای آموزشی</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="hero-art-crop">
+                        <img src="/assets/images/ai-learning-hero.png" alt="تصویر تراشه هوش مصنوعی و مهارت‌های یادگیری" class="hero-reference-art" width="1672" height="941" fetchpriority="high">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What are you looking for? -->
+    <section class="section" style="background:var(--bg-secondary)" aria-label="چه چیزی دنبالش هستید؟">
+        <div class="container">
+            <h2 class="section-title text-center">چه چیزی دنبالش هستید؟</h2>
+            <p class="section-subtitle text-center">حوزه مورد علاقه خود را انتخاب کنید</p>
+            <div id="categories" class="category-grid">
+                <!-- Loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Courses -->
+    <section class="section" aria-label="دوره‌های آموزشی هوش افزا">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2 class="section-title">دوره‌های آموزشی هوش افزا</h2>
+                <p class="section-subtitle">مهارت‌های تازه یاد بگیر؛ آینده‌ات را بساز</p>
+            </div>
+            <div id="popularCourses" class="courses-grid">
+                <!-- Loaded dynamically -->
+            </div>
+            <div class="text-center mt-8">
+                <a href="/pages/courses.html" class="btn btn-primary btn-lg">مشاهده همه دوره‌ها</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Us -->
+    <section class="section" style="background:var(--bg-secondary)" aria-label="چرا هوش افزا">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2 class="section-title">چرا هوش افزا؟</h2>
+                <p class="section-subtitle">چرا دانشجویان ما را انتخاب می‌کنند</p>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#book"></use></svg></div>
+                    <h3 class="benefit-title">محتوای به‌روز</h3>
+                    <p class="benefit-description">دوره‌ها با جدیدترین تکنولوژی‌ها و استانداردهای روز دنیا به‌روزرسانی می‌شوند</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#users"></use></svg></div>
+                    <h3 class="benefit-title">مدرسین متخصص</h3>
+                    <p class="benefit-description">تدریس توسط متخصصان با تجربه در صنعت و دانشگاه‌های معتبر</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#target"></use></svg></div>
+                    <h3 class="benefit-title">پروژه‌محور</h3>
+                    <p class="benefit-description">یادگیری با انجام پروژه‌های واقعی و کاربردی برای بازار کار</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#briefcase"></use></svg></div>
+                    <h3 class="benefit-title">یادگیری کاربردی</h3>
+                    <p class="benefit-description">تمرکز بر مهارت‌های مورد نیاز بازار کار و کسب درآمد</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Learning Path -->
+    <section class="section path-section" aria-label="مسیر یادگیری خود را بسازید">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2 class="section-title">مسیر یادگیری خود را بسازید</h2>
+                <p class="section-subtitle">از مبتدی تا حرفه‌ای، مسیر یادگیری خود را با ما طی کنید</p>
+            </div>
+            <div class="learning-path">
+                <div class="path-step">
+                    <div class="step-icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#flag"></use></svg></div>
+                    <div class="step-content">
+                        <h3 class="step-title">شروع</h3>
+                        <p class="step-description">شروع یادگیری با مبانی برنامه‌نویسی</p>
+                    </div>
+                </div>
+                <div class="path-connector"></div>
+                <div class="path-step">
+                    <div class="step-icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#code"></use></svg></div>
+                    <div class="step-content">
+                        <h3 class="step-title">پایتون</h3>
+                        <p class="step-description">یادگیری زبان پایتون از صفر تا صد</p>
+                    </div>
+                </div>
+                <div class="path-connector"></div>
+                <div class="path-step">
+                    <div class="step-icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#chip"></use></svg></div>
+                    <div class="step-content">
+                        <h3 class="step-title">یادگیری ماشین</h3>
+                        <p class="step-description">مبانی و الگوریتم‌های یادگیری ماشین</p>
+                    </div>
+                </div>
+                <div class="path-connector"></div>
+                <div class="path-step">
+                    <div class="step-icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#layers"></use></svg></div>
+                    <div class="step-content">
+                        <h3 class="step-title">یادگیری عمیق</h3>
+                        <p class="step-description">شبکه‌های عصبی و یادگیری عمیق</p>
+                    </div>
+                </div>
+                <div class="path-connector"></div>
+                <div class="path-step">
+                    <div class="step-icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#eye"></use></svg></div>
+                    <div class="step-content">
+                        <h3 class="step-title">بینایی ماشین</h3>
+                        <p class="step-description">پردازش تصویر و بینایی ماشین</p>
+                    </div>
+                </div>
+                <div class="path-connector"></div>
+                <div class="path-step">
+                    <div class="step-icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#target"></use></svg></div>
+                    <div class="step-content">
+                        <h3 class="step-title">هوش مصنوعی</h3>
+                        <p class="step-description">مسلط بر هوش مصنوعی و کاربردهای آن</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section assistant-section" aria-label="راهنمای انتخاب دوره">
+        <div class="container"><div class="assistant-banner">
+            <div><h2>مسیر مناسب تو، از همین‌جا شروع می‌شود</h2><p>برای انتخاب دوره و برنامه‌ریزی مسیر یادگیری، از تیم هوش افزا راهنمایی بگیر.</p></div>
+            <a href="/pages/contact.html" class="btn btn-primary">دریافت راهنمایی ←</a>
+            <span class="assistant-symbol" aria-hidden="true"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#chip"></use></svg></span>
+        </div></div>
+    </section>
+
+    <!-- Instructors -->
+    <section class="section" aria-label="مدرسین و متخصصان هوش افزا">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2 class="section-title">مدرسین و متخصصان هوش افزا</h2>
+                <p class="section-subtitle">با بهترین متخصصان ایران یاد بگیرید</p>
+            </div>
+            <div id="instructors" class="instructors-grid">
+                <!-- Loaded dynamically -->
+            </div>
+            <div class="text-center mt-8">
+                <a href="/pages/instructors.html" class="btn btn-outline btn-lg">مشاهده همه مدرسین</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section"><div class="container"><div class="start-banner">
+        <h2>آماده‌ای یادگیری را شروع کنی؟</h2><p>دانش امروز، آیندهٔ فردای توست.</p>
+        <a href="/pages/courses.html" class="btn btn-primary">مشاهده دوره‌ها ←</a>
+    </div></div></section>
+    <div id="footer"></div>
+
+    <!-- Scripts -->
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/utils.js"></script>
+    <script src="/js/components/header.js"></script>
+    <script src="/js/components/footer.js"></script>
+    <script src="/js/components/course-card.js"></script>
+    <script src="/js/home.js"></script>
+
+    <!-- JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "هوش افزا",
+        "url": "/",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "/pages/courses.html?search={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+</body>
+</html>

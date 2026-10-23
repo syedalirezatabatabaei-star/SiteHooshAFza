@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
+    <title>سبد خرید | هوش افزا</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/pages.css">
+    <link rel="stylesheet" href="/css/home.css">
+</head>
+<body class="hoosh-theme">
+    <div id="header"></div>
+
+    <section class="section">
+        <div class="container">
+            <h1 class="section-title mb-6">سبد خرید</h1>
+            <div style="display:grid;grid-template-columns:1fr;gap:var(--space-8)">
+                <div id="cartItems">
+                    <div class="loading-overlay"><div class="spinner spinner-lg"></div></div>
+                </div>
+                <div id="cartSummary" class="hidden">
+                    <div class="cart-summary">
+                        <h3 style="margin-bottom:var(--space-4)">خلاصه سفارش</h3>
+                        <div class="cart-summary-row">
+                            <span>جمع کل:</span>
+                            <span id="subtotal">—</span>
+                        </div>
+                        <div class="cart-summary-row">
+                            <span>تخفیف:</span>
+                            <span id="discount" style="color:var(--success)">—</span>
+                        </div>
+                        <div class="cart-summary-row cart-summary-total">
+                            <span>مبلغ نهایی:</span>
+                            <span id="total" class="price">—</span>
+                        </div>
+
+                        <div class="mt-4">
+                            <label class="form-label">کد تخفیف</label>
+                            <div class="flex gap-2">
+                                <input type="text" class="form-input" id="couponInput" placeholder="کد تخفیف">
+                                <button onclick="applyCoupon()" class="btn btn-outline btn-sm">اعمال</button>
+                            </div>
+                            <div id="couponMessage" class="mt-2"></div>
+                        </div>
+
+                        <button onclick="checkout()" class="btn btn-primary btn-full btn-lg mt-6">
+                            تکمیل خرید
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="footer"></div>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/utils.js"></script>
+    <script src="/js/components/header.js"></script>
+    <script src="/js/components/footer.js"></script>
+    <script>
+        async function loadCart() {
+            if (!Auth.isLoggedIn()) { window.location.href = '/pages/login.html'; return; }
+            const container = document.getElementById('cartItems');
+            try {
+                const cart = await API.get('/cart');
+                if (!cart.items || cart.items.length === 0) {
+                    Utils.showEmpty(container, 'سبد خرید شما خالی است');
+                    document.getElementById('cartSummary').classList.add('hidden');
+                    return;
+                }
+
+                container.innerHTML = cart.items.map(item => `
+                    <div class="cart-item">
+                        <img src="${item.course_thumbnail || '/assets/images/placeholder.jpg'}" alt="${item.course_title}" class="cart-item-image">
+                        <div class="cart-item-info">
+                            <h3 style="font-size:var(--text-base);margin-bottom:var(--space-1)">
+                                <a href="/pages/course-detail.html?slug=${item.course_slug || ''}">${item.course_title}</a>
+                            </h3>
+                            <span class="text-sm text-muted">${item.course_type === 'IN_PERSON' ? 'حضوری — پیش‌پرداخت' : 'ضبط‌شده'}</span>
+                            <span class="price" style="margin-right:var(--space-4)">${Utils.formatPrice(item.course_price)}</span>
+                        </div>
+                        <button onclick="removeItem(${item.id})" class="cart-item-remove" aria-label="حذف">✕</button>
+                    </div>
+                `).join('');
+
+                document.getElementById('subtotal').textContent = Utils.formatPrice(cart.subtotal);
+                document.getElementById('discount').textContent = cart.discount > 0 ? '-' + Utils.formatPrice(cart.discount) : '۰ تومان';
+                document.getElementById('total').textContent = Utils.formatPrice(cart.total);
+                document.getElementById('cartSummary').classList.remove('hidden');
+            } catch (e) {
+                Utils.showError(container, e.message);
+            }
+        }
+
+        async function removeItem(itemId) {
+            try {
+                await API.delete(`/cart/items/${itemId}`);
+                loadCart();
+            } catch (e) {
+                Utils.showToast(e.message, 'error');
+            }
+        }
+
+        async function applyCoupon() {
+            const code = document.getElementById('couponInput').value.trim();
+            const msgEl = document.getElementById('couponMessage');
+            if (!code) return;
+            try {
+                const result = await API.post('/cart/coupon', { code });
+                msgEl.innerHTML = `<span class="alert alert-success" style="display:inline">${result.message}</span>`;
+                loadCart();
+            } catch (e) {
+                msgEl.innerHTML = `<span class="alert alert-error" style="display:inline">${e.message}</span>`;
+            }
+        }
+
+        async function checkout() {
+            try {
+                const result = await API.post('/orders/checkout');
+                Utils.showToast('سفارش با موفقیت ثبت شد', 'success');
+                window.location.href = `/pages/dashboard.html#orders`;
+            } catch (e) {
+                Utils.showToast(e.message, 'error');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => { Header.init(); Footer.init(); loadCart(); });
+    </script>
+</body>
+</html>

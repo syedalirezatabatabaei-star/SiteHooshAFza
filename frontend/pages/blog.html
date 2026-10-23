@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
+    <title>وبلاگ | هوش افزا</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/pages.css">
+    <link rel="stylesheet" href="/css/home.css">
+</head>
+<body class="hoosh-theme">
+    <div id="header"></div>
+    <section class="py-8" style="background:var(--bg-secondary)">
+        <div class="container">
+            <h1 class="section-title">وبلاگ</h1>
+            <p class="section-subtitle">مقاله‌های آموزشی و تخصصی</p>
+            <div id="articlesGrid" class="grid grid-3"></div>
+            <div id="blogPagination"></div>
+        </div>
+    </section>
+    <div id="footer"></div>
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/utils.js"></script>
+    <script src="/js/components/header.js"></script>
+    <script src="/js/components/footer.js"></script>
+    <script>
+        async function loadArticles(page = 1) {
+            const c = document.getElementById('articlesGrid');
+            try {
+                const data = await API.get(`/articles?page=${page}&page_size=12`);
+                if (data.items && data.items.length > 0) {
+                    c.innerHTML = data.items.map(a => `
+                        <article class="card article-card">
+                            <a href="/pages/article-detail.html?slug=${a.slug}">
+                                <img src="${a.featured_image || '/assets/images/placeholder.jpg'}" alt="${a.title}" class="card-image" loading="lazy">
+                            </a>
+                            <div class="card-body">
+                                <div class="article-meta">
+                                    ${a.category ? `<span>${a.category.name}</span>` : ''}
+                                    <span>${a.author_name}</span>
+                                    ${a.published_at ? `<span>${new Date(a.published_at).toLocaleDateString('fa-IR')}</span>` : ''}
+                                </div>
+                                <a href="/pages/article-detail.html?slug=${a.slug}"><h3 class="card-title">${a.title}</h3></a>
+                                <p class="card-text">${a.excerpt}</p>
+                            </div>
+                        </article>
+                    `).join('');
+                    Utils.createPagination(document.getElementById('blogPagination'), data.page, data.pages, loadArticles);
+                } else { Utils.showEmpty(c, 'مقاله‌ای یافت نشد'); }
+            } catch(e) { Utils.showError(c, e.message); }
+        }
+        document.addEventListener('DOMContentLoaded', () => { Header.init(); Footer.init(); loadArticles(1); });
+    </script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+/* Dashboard specific overrides */
+.dashboard-content .card {
+    transition: none;
+}
+.dashboard-content .card:hover {
+    transform: none;
+    box-shadow: var(--shadow-sm);
+}
+
+/* Stat cards */
+.stat-card {
+    text-align: center;
+    padding: var(--space-6);
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+}
+.stat-card-icon { font-size: 2.5rem; margin-bottom: var(--space-2); }
+.stat-card-value { font-size: var(--text-2xl); font-weight: 800; }
+.stat-card-label { font-size: var(--text-sm); color: var(--text-secondary); }

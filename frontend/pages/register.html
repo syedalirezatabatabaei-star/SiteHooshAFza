@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
+    <title>ثبت‌نام | هوش افزا</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/pages.css">
+    <link rel="stylesheet" href="/css/home.css">
+</head>
+<body class="hoosh-theme">
+    <main class="auth-page">
+        <div class="auth-card">
+            <div class="auth-logo">
+                <img src="/assets/images/logo.jpg" alt="لوگوی هوش افزا" style="width:72px;height:72px;object-fit:contain;margin-bottom:var(--space-3)">
+                <h1 style="font-size:var(--text-2xl);color:var(--primary-700)">هوش افزا</h1>
+            </div>
+            <h2 class="auth-title">ایجاد حساب کاربری</h2>
+
+            <div id="errorAlert" class="alert alert-error hidden"></div>
+
+            <form id="registerForm" novalidate>
+                <div class="form-group">
+                    <label class="form-label" for="firstName">نام</label>
+                    <input type="text" id="firstName" class="form-input" placeholder="نام" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="lastName">نام خانوادگی</label>
+                    <input type="text" id="lastName" class="form-input" placeholder="نام خانوادگی" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="phone">شماره تلفن</label>
+                    <input type="tel" id="phone" class="form-input" placeholder="09121234567" required
+                           pattern="^0[0-9]{10}$" autocomplete="tel">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="password">رمز عبور</label>
+                    <input type="password" id="password" class="form-input" placeholder="حداقل ۶ کاراکتر" required
+                           minlength="6" autocomplete="new-password">
+                </div>
+                <button type="submit" class="btn btn-primary btn-full btn-lg" id="submitBtn">
+                    ثبت‌نام
+                </button>
+            </form>
+
+            <div class="auth-footer">
+                قبلاً ثبت‌نام کرده‌اید؟
+                <a href="/pages/login.html" style="color:var(--primary-600);font-weight:600">وارد شوید</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/utils.js"></script>
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const password = document.getElementById('password').value;
+            const errorEl = document.getElementById('errorAlert');
+            const btn = document.getElementById('submitBtn');
+
+            if (!firstName || !lastName || !phone || !password) {
+                errorEl.textContent = 'لطفاً همه فیلدها را پر کنید';
+                errorEl.classList.remove('hidden');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.textContent = 'در حال ثبت‌نام...';
+            errorEl.classList.add('hidden');
+
+            try {
+                await Auth.register(phone, password, firstName, lastName);
+                Utils.showToast('ثبت‌نام موفق', 'success');
+                window.location.href = '/pages/dashboard.html';
+            } catch (err) {
+                errorEl.textContent = err.message || 'خطا در ثبت‌نام';
+                errorEl.classList.remove('hidden');
+                btn.disabled = false;
+                btn.textContent = 'ثبت‌نام';
+            }
+        });
+    </script>
+</body>
+</html>

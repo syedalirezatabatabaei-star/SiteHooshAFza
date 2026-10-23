@@ -1,0 +1,43 @@
+# Python
+*.pyc
+__pycache__/
+*.pyo
+*.egg-info/
+dist/
+build/
+*.egg
+.eggs/
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+database/backups/
+media/
+staticfiles/
+*.pot
+
+# Environment
+.env
+.env.local
+.env.production
+.env.backup
+
+# Freebuff local artifacts
+.freebuff/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Docker
+mysql_data/
+media_data/
+
+# Node
+node_modules/

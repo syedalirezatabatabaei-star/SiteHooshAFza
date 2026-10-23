@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
+    <title>مدرسین | هوش افزا</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/pages.css">
+    <link rel="stylesheet" href="/css/home.css">
+</head>
+<body class="hoosh-theme">
+    <div id="header"></div>
+    <section class="py-8" style="background:var(--bg-secondary)">
+        <div class="container">
+            <h1 class="section-title">مدرسین</h1>
+            <p class="section-subtitle">مدرسین مجرب و متخصص هوش افزا</p>
+            <div id="instructorsGrid" class="grid grid-3"></div>
+        </div>
+    </section>
+    <div id="footer"></div>
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/utils.js"></script>
+    <script src="/js/components/header.js"></script>
+    <script src="/js/components/footer.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            Header.init(); Footer.init();
+            const c = document.getElementById('instructorsGrid');
+            try {
+                const data = await API.get('/instructors');
+                if (data.items && data.items.length > 0) {
+                    c.innerHTML = data.items.map(i => `
+                        <div class="card" style="padding:var(--space-6);text-align:center">
+                            <img src="${i.profile_image || '/assets/images/placeholder.jpg'}" alt="${i.name}"
+                                 style="width:120px;height:120px;border-radius:50%;object-fit:cover;margin:0 auto var(--space-4)">
+                            <h3 style="margin-bottom:var(--space-2)">${i.name}</h3>
+                            <p class="badge badge-primary" style="margin-bottom:var(--space-2)">${i.specialization}</p>
+                            <p class="text-sm text-muted">${(i.bio || '').substring(0, 150)}${i.bio && i.bio.length > 150 ? '…' : ''}</p>
+                        </div>
+                    `).join('');
+                } else { Utils.showEmpty(c, 'مدرسی یافت نشد'); }
+            } catch(e) { Utils.showError(c, e.message); }
+        });
+    </script>
+</body>
+</html>

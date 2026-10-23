@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
+    <title>جزئیات دوره | هوش افزا</title>
+    <meta name="description" content="اطلاعات و سرفصل‌های دوره‌های آموزشی هوش افزا">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/pages.css">
+    <link rel="stylesheet" href="/css/home.css">
+</head>
+<body class="hoosh-theme">
+    <div id="header"></div>
+
+    <div id="courseContent">
+        <div class="loading-overlay"><div class="spinner spinner-lg"></div></div>
+    </div>
+
+    <div id="footer"></div>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/utils.js"></script>
+    <script src="/js/components/header.js"></script>
+    <script src="/js/components/footer.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            Header.init();
+            Footer.init();
+
+            const slug = Utils.getUrlParam('slug');
+            const container = document.getElementById('courseContent');
+
+            if (!slug) {
+                Utils.showError(container, 'شناسه دوره نامعتبر است');
+                return;
+            }
+
+            try {
+                const course = await API.get(`/courses/${slug}`);
+
+                document.title = `${course.title} | هوش افزا`;
+                document.querySelector('meta[name="description"]').content = course.short_description;
+
+                let chaptersHtml = '';
+                if (course.chapters && course.chapters.length > 0) {
+                    chaptersHtml = course.chapters.map((ch, i) => `
+                        <div class="chapter-item">
+                            <div class="chapter-header" onclick="this.parentElement.querySelector('.lesson-list').classList.toggle('hidden')">
+                                <span>فصل ${Utils.toPersianDigits(i + 1)}: ${ch.title}</span>
+                                <span>${ch.lessons.length} جلسه</span>
+                            </div>
+                            <div class="lesson-list">
+                                ${ch.lessons.map(l => `
+                                    <div class="lesson-item">
+                                        <span>${l.title}</span>
+                                        <div class="flex items-center gap-2">
+                                            ${l.is_preview ? '<span class="badge badge-success">رایگان</span>' : ''}
+                                            <span class="text-muted">${l.duration} دقیقه</span>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `).join('');
+                }
+
+                let schedulesHtml = '';
+                if (course.schedules && course.schedules.length > 0) {
+                    const dayMap = {'SATURDAY':'شنبه','SUNDAY':'یکشنبه','MONDAY':'دوشنبه','TUESDAY':'سه‌شنبه','WEDNESDAY':'چهارشنبه','THURSDAY':'پنجشنبه','FRIDAY':'جمعه'};
+                    schedulesHtml = course.schedules.map(s => `
+                        <span class="badge badge-primary">${dayMap[s.day_of_week] || s.day_of_week} ${s.start_time} - ${s.end_time}</span>
+                    `).join(' ');
+                }
+
+                let inpersonHtml = '';
+                if (course.inperson_detail) {
+                    inpersonHtml = `
+                        <div style="margin-top:var(--space-4)">
+                            <p><strong>محل برگزاری:</strong> ${course.inperson_detail.location}</p>
+                            <p><strong>تاریخ:</strong> ${Utils.formatDate(course.inperson_detail.start_date)} تا ${Utils.formatDate(course.inperson_detail.end_date)}</p>
+                            <p><strong>پیش‌پرداخت:</strong> ${Utils.formatPrice(course.inperson_detail.prepayment_amount)}</p>
+                            <p><strong>باقی‌مانده:</strong> ${Utils.formatPrice(course.inperson_detail.remaining_amount)}</p>
+                        </div>
+                    `;
+                }
+
+                container.innerHTML = `
+                    <section class="course-hero">
+                        <div class="container course-hero-grid">
+                            <div>
+                                <div class="flex items-center gap-2 mb-4">
+                                    ${Utils.getCourseTypeBadge(course.course_type)}
+                                    ${course.category ? `<span class="badge badge-ghost">${course.category.name}</span>` : ''}
+                                </div>
+                                <h1 style="font-size:var(--text-3xl);margin-bottom:var(--space-4)">${course.title}</h1>
+                                <p style="opacity:0.9;margin-bottom:var(--space-4)">${course.short_description}</p>
+                                <div class="flex items-center gap-4">
+                                    ${Utils.generateStars(Math.round(course.average_rating))}
+                                    <span style="opacity:0.8">(${course.review_count} نظر)</span>
+                                    <span style="opacity:0.8">${course.enrolled_count} دانشجو</span>
+                                </div>
+                                <div class="course-info-list">
+                                    <div class="course-info-item"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#users"></use></svg> مدرس: ${course.instructor.name}</div>
+                                    ${schedulesHtml ? `<div class="course-info-item">${schedulesHtml}</div>` : ''}
+                                    ${course.total_lessons ? `<div class="course-info-item"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#book"></use></svg> ${course.total_lessons} جلسه</div>` : ''}
+                                </div>
+                            </div>
+                            <div class="course-sidebar">
+                                <img src="${course.thumbnail || '/assets/images/placeholder.jpg'}" alt="${course.title}" style="width:100%;border-radius:var(--border-radius);margin-bottom:var(--space-4)">
+                                <div class="course-sidebar-price">${Utils.formatPrice(course.price)}</div>
+                                ${inpersonHtml}
+                                <button onclick="addToCart(${course.id})" class="btn btn-primary btn-full btn-lg" style="margin-top:var(--space-4)">
+                                    افزودن به سبد خرید
+                                </button>
+                                <p class="text-center text-muted text-sm" style="margin-top:var(--space-3)">
+                                    <svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#shield"></use></svg> پرداخت امن از درگاه بانکی
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="section">
+                        <div class="container" style="max-width:800px">
+                            <h2 class="section-title">توضیحات دوره</h2>
+                            <div class="article-content" style="margin-top:var(--space-4)">
+                                ${course.description}
+                            </div>
+                        </div>
+                    </section>
+
+                    ${chaptersHtml ? `
+                        <section class="section" style="background:var(--bg-secondary)">
+                            <div class="container course-chapters">
+                                <h2 class="section-title">سرفصل‌ها</h2>
+                                ${chaptersHtml}
+                            </div>
+                        </section>
+                    ` : ''}
+
+                    <section class="section">
+                        <div class="container">
+                            <h2 class="section-title">مدرس دوره</h2>
+                            <div class="card" style="padding:var(--space-6);margin-top:var(--space-4)">
+                                <a href="/pages/instructors.html?slug=${course.instructor.slug}" class="flex items-center gap-4">
+                                    <img src="${course.instructor.profile_image || '/assets/images/placeholder.jpg'}" alt="${course.instructor.name}"
+                                         style="width:80px;height:80px;border-radius:50%;object-fit:cover">
+                                    <div>
+                                        <h3>${course.instructor.name}</h3>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </section>
+                `;
+            } catch (e) {
+                Utils.showError(container, e.message || 'دوره یافت نشد');
+            }
+        });
+
+        async function addToCart(courseId) {
+            if (!Auth.isLoggedIn()) {
+                window.location.href = '/pages/login.html';
+                return;
+            }
+            try {
+                await API.post('/cart/items', { course_id: courseId });
+                Utils.showToast('دوره به سبد خرید اضافه شد', 'success');
+            } catch (e) {
+                Utils.showToast(e.message || 'خطا در افزودن به سبد', 'error');
+            }
+        }
+    </script>
+</body>
+</html>

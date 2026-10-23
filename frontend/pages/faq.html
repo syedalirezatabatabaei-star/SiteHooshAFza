@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
+    <title>سؤالات متداول | هوش افزا</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/home.css">
+</head>
+<body class="hoosh-theme">
+    <div id="header"></div>
+    <section class="py-12">
+        <div class="container" style="max-width:800px">
+            <h1 class="section-title text-center">سؤالات متداول</h1>
+            <div class="mt-8" id="faqList">
+                <div class="chapter-item mb-3">
+                    <div class="chapter-header" onclick="this.parentElement.querySelector('.lesson-list').classList.toggle('hidden')"><span>چگونه می‌توانم در دوره‌ها ثبت‌نام کنم؟</span><span>+</span></div>
+                    <div class="lesson-list hidden"><p style="padding:var(--space-4)">ابتدا در سایت ثبت‌نام کنید، سپس دوره مورد نظر را انتخاب و به سبد خرید اضافه کنید. پس از پرداخت، ثبت‌نام شما تکمیل می‌شود.</p></div>
+                </div>
+                <div class="chapter-item mb-3">
+                    <div class="chapter-header" onclick="this.parentElement.querySelector('.lesson-list').classList.toggle('hidden')"><span>آیا امکان پرداخت اقساطی وجود دارد؟</span><span>+</span></div>
+                    <div class="lesson-list hidden"><p style="padding:var(--space-4)">برای دوره‌های حضوری امکان پرداخت پیش‌پرداخت و اقساط وجود دارد.</p></div>
+                </div>
+                <div class="chapter-item mb-3">
+                    <div class="chapter-header" onclick="this.parentElement.querySelector('.lesson-list').classList.toggle('hidden')"><span>آیا گواهینامه صادر می‌شود؟</span><span>+</span></div>
+                    <div class="lesson-list hidden"><p style="padding:var(--space-4)">بله، پس از اتمام دوره با پیشرفت حداقل ۷۰٪ و قبولی در آزمون، گواهینامه صادر می‌شود.</p></div>
+                </div>
+                <div class="chapter-item mb-3">
+                    <div class="chapter-header" onclick="this.parentElement.querySelector('.lesson-list').classList.toggle('hidden')"><span>چگونه با مدرسین ارتباط برقرار کنم؟</span><span>+</span></div>
+                    <div class="lesson-list hidden"><p style="padding:var(--space-4)">از طریق سیستم تیکت پشتیبانی می‌توانید سوالات خود را مطرح کنید.</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div id="footer"></div>
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/components/header.js"></script>
+    <script src="/js/components/footer.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', () => { Header.init(); Footer.init(); });</script>
+</body>
+</html>
