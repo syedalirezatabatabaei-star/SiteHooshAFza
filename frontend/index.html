@@ -145,61 +145,27 @@
         </div>
     </section>
 
-    <!-- Learning Path -->
-    <section class="section path-section" aria-label="مسیر یادگیری خود را بسازید">
+    <!-- Learning Path: fixed search panel with reserved empty tiles -->
+    <section class="section path-section" aria-label="مسیر یادگیری خود را پیدا کنید">
         <div class="container">
             <div class="section-header text-center">
-                <h2 class="section-title">مسیر یادگیری خود را بسازید</h2>
-                <p class="section-subtitle">از مبتدی تا حرفه‌ای، مسیر یادگیری خود را با ما طی کنید</p>
+                <h2 class="section-title">مسیر یادگیری خود را پیدا کنید</h2>
+                <p class="section-subtitle">از علاقه‌تان شروع کنید؛ مسیر مناسب را جست‌وجو کنید.</p>
             </div>
-            <div class="learning-path">
-                <div class="path-step">
-                    <div class="step-icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#flag"></use></svg></div>
-                    <div class="step-content">
-                        <h3 class="step-title">شروع</h3>
-                        <p class="step-description">شروع یادگیری با مبانی برنامه‌نویسی</p>
-                    </div>
+            <div class="learning-discovery-grid">
+                <div class="learning-search-panel">
+                    <span class="learning-search-eyebrow">مسیر شما از اینجا شروع می‌شود</span>
+                    <h3>به دنبال چه چیزی هستید؟</h3>
+                    <p>نام مهارت یا دوره‌ای را که می‌خواهید یاد بگیرید وارد کنید.</p>
+                    <form class="learning-search-form" id="learningPathSearch" role="search" action="/pages/courses.html" method="get">
+                        <label class="visually-hidden" for="learningPathQuery">به دنبال چه چیزی هستید؟</label>
+                        <svg class="ui-icon learning-search-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#search"></use></svg>
+                        <input id="learningPathQuery" name="search" type="search" placeholder="مثلاً پایتون، طراحی سایت، هوش مصنوعی" autocomplete="off">
+                        <button class="btn btn-primary" type="submit">جست‌وجو</button>
+                    </form>
                 </div>
-                <div class="path-connector"></div>
-                <div class="path-step">
-                    <div class="step-icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#code"></use></svg></div>
-                    <div class="step-content">
-                        <h3 class="step-title">پایتون</h3>
-                        <p class="step-description">یادگیری زبان پایتون از صفر تا صد</p>
-                    </div>
-                </div>
-                <div class="path-connector"></div>
-                <div class="path-step">
-                    <div class="step-icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#chip"></use></svg></div>
-                    <div class="step-content">
-                        <h3 class="step-title">یادگیری ماشین</h3>
-                        <p class="step-description">مبانی و الگوریتم‌های یادگیری ماشین</p>
-                    </div>
-                </div>
-                <div class="path-connector"></div>
-                <div class="path-step">
-                    <div class="step-icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#layers"></use></svg></div>
-                    <div class="step-content">
-                        <h3 class="step-title">یادگیری عمیق</h3>
-                        <p class="step-description">شبکه‌های عصبی و یادگیری عمیق</p>
-                    </div>
-                </div>
-                <div class="path-connector"></div>
-                <div class="path-step">
-                    <div class="step-icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#eye"></use></svg></div>
-                    <div class="step-content">
-                        <h3 class="step-title">بینایی ماشین</h3>
-                        <p class="step-description">پردازش تصویر و بینایی ماشین</p>
-                    </div>
-                </div>
-                <div class="path-connector"></div>
-                <div class="path-step">
-                    <div class="step-icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#target"></use></svg></div>
-                    <div class="step-content">
-                        <h3 class="step-title">هوش مصنوعی</h3>
-                        <p class="step-description">مسلط بر هوش مصنوعی و کاربردهای آن</p>
-                    </div>
-                </div>
+                <div class="learning-empty-tile" aria-hidden="true"></div>
+                <div class="learning-empty-tile" aria-hidden="true"></div>
             </div>
         </div>
     </section>
