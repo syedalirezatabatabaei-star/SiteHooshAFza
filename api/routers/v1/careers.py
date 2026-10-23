@@ -10,6 +10,8 @@ router = APIRouter()
 
 @router.post('/applications', status_code=201)
 def submit_application(data: CareerApplicationCreate, request: Request):
+    if data.application_type not in {'INSTITUTE', 'SUBSIDIARY', 'JOB'}:
+        raise HTTPException(status_code=422, detail='نوع درخواست معتبر نیست')
     # Basic per-client throttling is expected at the reverse proxy; never trust
     # forwarded IP headers unless Nginx is configured to overwrite them.
     phone = ''.join(ch for ch in data.phone if ch.isdigit() or ch == '+')
@@ -51,6 +53,8 @@ def list_applications(status: str = None, application_type: str = None, admin=De
 
 @router.patch('/applications/{application_id}')
 def update_application(application_id: int, data: CareerApplicationUpdate, admin=Depends(get_current_admin)):
+    if data.status not in {'NEW', 'REVIEWING', 'CONTACTED', 'REJECTED'}:
+        raise HTTPException(status_code=422, detail='وضعیت درخواست معتبر نیست')
     try:
         item = CareerApplication.objects.get(pk=application_id)
     except CareerApplication.DoesNotExist:
