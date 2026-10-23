@@ -138,57 +138,67 @@
         </div>
     </section>
 
-    <!-- Learning Path -->
-    <section class="section path-section" aria-label="مسیر یادگیری خود را بسازید">
+    <!-- Consultation request replaces the learning path -->
+    <section class="section consultation-section" aria-label="درخواست مشاوره">
         <div class="container">
-            <div class="section-header text-center">
-                <h2 class="section-title">مسیر یادگیری خود را بسازید</h2>
-                <p class="section-subtitle">از مبتدی تا حرفه‌ای، مسیر یادگیری خود را با ما طی کنید</p>
-            </div>
-            <div class="learning-path">
-                <div class="path-step"><div class="step-icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#flag"></use></svg></div><div class="step-content"><h3 class="step-title">شروع</h3><p class="step-description">شروع یادگیری با مبانی برنامه‌نویسی</p></div></div>
-                <div class="path-connector"></div>
-                <div class="path-step"><div class="step-icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#code"></use></svg></div><div class="step-content"><h3 class="step-title">پایتون</h3><p class="step-description">یادگیری زبان پایتون از صفر تا صد</p></div></div>
-                <div class="path-connector"></div>
-                <div class="path-step"><div class="step-icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#chip"></use></svg></div><div class="step-content"><h3 class="step-title">یادگیری ماشین</h3><p class="step-description">مبانی و الگوریتم‌های یادگیری ماشین</p></div></div>
-                <div class="path-connector"></div>
-                <div class="path-step"><div class="step-icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#layers"></use></svg></div><div class="step-content"><h3 class="step-title">یادگیری عمیق</h3><p class="step-description">شبکه‌های عصبی و یادگیری عمیق</p></div></div>
-                <div class="path-connector"></div>
-                <div class="path-step"><div class="step-icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#eye"></use></svg></div><div class="step-content"><h3 class="step-title">بینایی ماشین</h3><p class="step-description">پردازش تصویر و بینایی ماشین</p></div></div>
-                <div class="path-connector"></div>
-                <div class="path-step"><div class="step-icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#target"></use></svg></div><div class="step-content"><h3 class="step-title">هوش مصنوعی</h3><p class="step-description">مسلط بر هوش مصنوعی و کاربردهای آن</p></div></div>
+            <div class="consultation-panel">
+                <div class="consultation-icon" aria-hidden="true"><svg class="ui-icon"><use href="/assets/images/ui-icons.svg#message-circle"></use></svg></div>
+                <div class="consultation-copy">
+                    <span class="consultation-eyebrow">مشاوره تخصصی</span>
+                    <h2>برای انتخاب مسیر آموزشی مناسب، مشاوره بگیر</h2>
+                    <p>با راهنمایی تیم هوش افزا، دوره متناسب با هدف و سطح خودت را پیدا کن.</p>
+                </div>
+                <a href="/pages/contact.html" class="btn btn-primary consultation-cta">درخواست مشاوره <span aria-hidden="true">←</span></a>
             </div>
         </div>
-    </section>
-
-    <section class="section assistant-section" aria-label="راهنمای انتخاب دوره">
-        <div class="container"><div class="assistant-banner">
-            <div><h2>مسیر مناسب تو، از همین‌جا شروع می‌شود</h2><p>برای انتخاب دوره و برنامه‌ریزی مسیر یادگیری، از تیم هوش افزا راهنمایی بگیر.</p></div>
-            <a href="/pages/contact.html" class="btn btn-primary">دریافت راهنمایی ←</a>
-            <span class="assistant-symbol" aria-hidden="true"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#chip"></use></svg></span>
-        </div></div>
     </section>
 
     <!-- Instructors -->
-    <section class="section" aria-label="مدرسین و متخصصان هوش افزا">
+    <section class="section instructors-section" aria-label="مدرسین و متخصصان هوش افزا">
         <div class="container">
-            <div class="section-header text-center">
-                <h2 class="section-title">مدرسین و متخصصان هوش افزا</h2>
-                <p class="section-subtitle">با بهترین متخصصان ایران یاد بگیرید</p>
+            <div class="section-heading-row">
+                <div class="section-heading-copy">
+                    <h2 class="section-title">مدرسین و متخصصان هوش افزا</h2>
+                    <p class="section-subtitle">با متخصصان و مدرسان حوزه‌های مختلف آشنا شوید</p>
+                </div>
+                <a href="/pages/instructors.html" class="section-view-all">مشاهده کامل مدرسین <span aria-hidden="true">←</span></a>
             </div>
-            <div id="instructors" class="instructors-grid">
-                <!-- Loaded dynamically -->
-            </div>
-            <div class="text-center mt-8">
-                <a href="/pages/instructors.html" class="btn btn-outline btn-lg">مشاهده همه مدرسین</a>
+            <div class="instructors-scroll-shell">
+                <div id="instructors" class="instructors-grid instructors-scroll" aria-label="مدرسین هوش افزا">
+                    <!-- Loaded dynamically -->
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="section"><div class="container"><div class="start-banner">
-        <h2>آماده‌ای یادگیری را شروع کنی؟</h2><p>دانش امروز، آیندهٔ فردای توست.</p>
-        <a href="/pages/courses.html" class="btn btn-primary">مشاهده دوره‌ها ←</a>
-    </div></div></section>
+    <!-- Live platform statistics -->
+    <section class="section platform-stats-section" aria-label="آمار هوش افزا">
+        <div class="container">
+            <div class="platform-stats-grid">
+                <article class="platform-stat-card">
+                    <span class="platform-stat-icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#users"></use></svg></span>
+                    <strong class="platform-stat-number" id="statStudents">—</strong>
+                    <span class="platform-stat-label">دانشجو</span>
+                </article>
+                <article class="platform-stat-card">
+                    <span class="platform-stat-icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#book"></use></svg></span>
+                    <strong class="platform-stat-number" id="statCourses">—</strong>
+                    <span class="platform-stat-label">دوره آموزشی</span>
+                </article>
+                <article class="platform-stat-card">
+                    <span class="platform-stat-icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#graduation-cap"></use></svg></span>
+                    <strong class="platform-stat-number" id="statInstructors">—</strong>
+                    <span class="platform-stat-label">مدرس</span>
+                </article>
+                <article class="platform-stat-card">
+                    <span class="platform-stat-icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#layers"></use></svg></span>
+                    <strong class="platform-stat-number" id="statCategories">—</strong>
+                    <span class="platform-stat-label">حوزه تخصصی</span>
+                </article>
+            </div>
+        </div>
+    </section>
+
     <div id="footer"></div>
 
     <!-- Scripts -->
