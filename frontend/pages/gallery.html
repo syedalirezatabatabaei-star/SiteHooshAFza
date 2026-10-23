@@ -21,6 +21,16 @@
       .simple-info-page .info-panel p{margin:0 0 12px}
       .simple-info-page .info-panel p:last-child{margin-bottom:0}
       .simple-info-page .info-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+    
+      .gallery-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin:24px 0}
+      .gallery-card{overflow:hidden;border:1px solid var(--border-color);border-radius:14px;background:var(--bg-primary)}
+      .gallery-card img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:var(--bg-secondary)}
+      .gallery-card figcaption{padding:12px 14px;line-height:1.8}
+      .gallery-card h3{font-size:1rem;margin:0 0 6px}
+      .gallery-card p{color:var(--text-secondary);margin:0}
+      @media(max-width:760px){.gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+      @media(max-width:480px){.gallery-grid{grid-template-columns:1fr}}
+
     </style>
 </head>
 <body class="hoosh-theme">
@@ -29,7 +39,12 @@
       <span class="eyebrow">هوش افزا</span>
       <h1>گالری هوش افزا</h1>
       <p class="lead">تصاویر و گزارش‌های تصویری فعالیت‌های آموزشی و رویدادهای هوش افزا.</p>
-      <section class="info-panel"><h2>گالری تصاویر</h2><p>بخش گالری آماده است؛ تصاویر رویدادها و فعالیت‌های مؤسسه پس از بارگذاری محتوای تأییدشده در این صفحه نمایش داده خواهند شد.</p><p>برای دریافت اطلاعات درباره دوره‌ها و فعالیت‌های آموزشی، از صفحه تماس با ما استفاده کنید.</p><div class="info-actions"><a class="btn btn-primary" href="/pages/contact.html">تماس با ما</a><a class="btn btn-outline" href="/pages/about.html">درباره ما</a></div></section>
+      <section aria-labelledby="gallery-heading">
+        <h2 id="gallery-heading">گالری تصاویر</h2>
+        <p id="galleryStatus" role="status" aria-live="polite">در حال دریافت تصاویر…</p>
+        <div id="galleryGrid" class="gallery-grid"></div>
+        <div class="info-actions"><a class="btn btn-primary" href="/pages/contact.html">تماس با ما</a><a class="btn btn-outline" href="/pages/about.html">درباره ما</a></div>
+      </section>
     </main>
     <div id="footer"></div>
     <script src="/js/api.js"></script>
@@ -37,5 +52,45 @@
     <script src="/js/components/header.js"></script>
     <script src="/js/components/footer.js"></script>
     <script>document.addEventListener('DOMContentLoaded', () => { Header.init(); Footer.init(); });</script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const grid = document.getElementById('galleryGrid');
+      const status = document.getElementById('galleryStatus');
+      try {
+        const response = await fetch('/api/v1/gallery');
+        if (!response.ok) throw new Error('دریافت تصاویر ناموفق بود.');
+        const items = await response.json();
+        if (!Array.isArray(items) || !items.length) {
+          status.textContent = 'هنوز تصویری در گالری ثبت نشده است.';
+          return;
+        }
+        status.textContent = '';
+        items.forEach(item => {
+          const figure = document.createElement('figure');
+          figure.className = 'gallery-card';
+          const img = document.createElement('img');
+          img.src = item.image_url;
+          img.alt = item.alt_text || item.title || 'تصویر گالری هوش افزا';
+          img.loading = 'lazy';
+          img.referrerPolicy = 'no-referrer';
+          const caption = document.createElement('figcaption');
+          const heading = document.createElement('h3');
+          heading.textContent = item.title || '';
+          caption.appendChild(heading);
+          if (item.caption) {
+            const description = document.createElement('p');
+            description.textContent = item.caption;
+            caption.appendChild(description);
+          }
+          figure.append(img, caption);
+          grid.appendChild(figure);
+        });
+      } catch (error) {
+        status.textContent = error.message || 'ارتباط با سرور برقرار نشد.';
+      }
+    });
+    </script>
+
 </body>
 </html>
