@@ -539,3 +539,27 @@ def admin_create_course(
         course_type=course_type, price=price, instructor=instructor,
     )
     return {'message': 'دوره ایجاد شد', 'id': course.id}
+
+
+
+@router.post('/spotplayer-licenses/{order_item_id}/retry')
+def retry_spotplayer_license(order_item_id: int, admin=Depends(get_current_admin)):
+    """Retry a failed/pending SpotPlayer license issuance for a paid order item."""
+    from apps.orders.models import OrderItem
+    from apps.courses.spotplayer import issue_license_for_order_item
+    try:
+        item = OrderItem.objects.select_related('order__user', 'course').get(
+            pk=order_item_id, order__status='PAID',
+        )
+    except OrderItem.DoesNotExist:
+        raise HTTPException(status_code=404, detail='آیتم سفارش پرداخت‌شده یافت نشد')
+    if not item.course.is_recorded or not item.course.spotplayer_course_id:
+        raise HTTPException(status_code=400, detail='برای این دوره ضبط‌شده، شناسه SpotPlayer تنظیم نشده است')
+    license_record = issue_license_for_order_item(item)
+    if not license_record:
+        raise HTTPException(status_code=400, detail='لایسنس برای این آیتم قابل صدور نیست')
+    return {
+        'status': license_record.status,
+        'license_id': license_record.external_license_id,
+        'error': license_record.error_message,
+    }
