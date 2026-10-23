@@ -21,6 +21,15 @@
       .simple-info-page .info-panel p{margin:0 0 12px}
       .simple-info-page .info-panel p:last-child{margin-bottom:0}
       .simple-info-page .info-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+    
+      .career-application-panel{margin-top:28px}
+      .career-application-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:20px}
+      .career-application-form label{display:flex;flex-direction:column;gap:8px;font-weight:600}
+      .career-application-form input,.career-application-form textarea{width:100%;box-sizing:border-box;padding:12px;border:1px solid var(--border-color);border-radius:10px;background:var(--bg-primary);color:var(--text-primary);font:inherit}
+      .career-application-form label:has(textarea),.career-application-form button,.career-application-form #applicationResult{grid-column:1/-1}
+      .career-application-form button{justify-self:start}
+      @media(max-width:650px){.career-application-form{grid-template-columns:1fr}}
+
     </style>
 </head>
 <body class="hoosh-theme">
@@ -30,6 +39,24 @@
       <h1>فرصت‌های شغلی</h1>
       <p class="lead">اطلاعیه‌های استخدامی و فرصت‌های شغلی مرتبط با فعالیت‌های هوش افزا در این بخش قرار می‌گیرند.</p>
       <section class="info-panel"><h2>فرصت‌های شغلی</h2><p>در حال حاضر فرصت شغلی تأییدشده‌ای برای نمایش در این صفحه ثبت نشده است.</p><p>اگر مایل به همکاری حرفه‌ای هستید، می‌توانید تخصص و سوابق خود را از طریق صفحه تماس با ما معرفی کنید. ارسال درخواست به‌تنهایی به معنای وجود موقعیت خالی یا تضمین استخدام نیست.</p><div class="info-actions"><a class="btn btn-primary" href="/pages/contact.html">معرفی سوابق و تخصص</a></div></section>
+    
+      <section class="info-panel career-application-panel" aria-labelledby="application-heading">
+        <h2 id="application-heading">ثبت درخواست</h2>
+        <p>اطلاعات زیر را تکمیل کنید. درخواست شما در سامانه ثبت و برای بررسی به مدیران ارسال می‌شود.</p>
+        <form class="career-application-form" id="careerApplicationForm">
+          <input type="hidden" name="application_type" value="JOB">
+          <label>نام و نام خانوادگی<input name="full_name" required minlength="2" maxlength="180" autocomplete="name"></label>
+          <label>شماره تماس<input name="phone" required minlength="7" maxlength="30" autocomplete="tel" inputmode="tel"></label>
+          <label>ایمیل (اختیاری)<input name="email" type="email" maxlength="254" autocomplete="email"></label>
+          <label>نام شرکت یا مؤسسه (اختیاری)<input name="organization" maxlength="200"></label>
+          <label>عنوان موقعیت یا زمینه همکاری<input name="position" maxlength="200"></label>
+          <label>لینک رزومه (اختیاری)<input name="resume_url" type="url" maxlength="1000" placeholder="https://"></label>
+          <label>توضیحات<textarea name="message" required minlength="10" maxlength="5000" rows="5"></textarea></label>
+          <button class="btn btn-primary" type="submit">ارسال درخواست</button>
+          <p id="applicationResult" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+
     </main>
     <div id="footer"></div>
     <script src="/js/api.js"></script>
@@ -37,5 +64,36 @@
     <script src="/js/components/header.js"></script>
     <script src="/js/components/footer.js"></script>
     <script>document.addEventListener('DOMContentLoaded', () => { Header.init(); Footer.init(); });</script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('careerApplicationForm');
+      if (!form) return;
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const result = document.getElementById('applicationResult');
+        const button = form.querySelector('button[type="submit"]');
+        button.disabled = true;
+        result.textContent = 'در حال ارسال درخواست…';
+        const data = Object.fromEntries(new FormData(form).entries());
+        try {
+          const response = await fetch('/api/v1/careers/applications', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(data)
+          });
+          const body = await response.json().catch(() => ({}));
+          if (!response.ok) throw new Error(body.detail || 'ثبت درخواست ناموفق بود.');
+          result.textContent = body.message || 'درخواست شما ثبت شد.';
+          form.reset();
+        } catch (error) {
+          result.textContent = error.message || 'ارتباط با سرور برقرار نشد. دوباره تلاش کنید.';
+        } finally {
+          button.disabled = false;
+        }
+      });
+    });
+    </script>
+
 </body>
 </html>
