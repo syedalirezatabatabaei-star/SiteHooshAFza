@@ -9,3 +9,12 @@ class CareerApplicationAdmin(admin.ModelAdmin):
     search_fields = ('full_name', 'phone', 'email', 'organization', 'position')
     readonly_fields = ('created_at',)
     list_editable = ('status',)
+
+
+
+@admin.register(GalleryItem)
+class GalleryItemAdmin(admin.ModelAdmin):
+    list_display = ('title', 'sort_order', 'is_active', 'created_at')
+    list_filter = ('is_active',)
+    search_fields = ('title', 'caption')
+    list_editable = ('sort_order', 'is_active')
