@@ -622,3 +622,42 @@
 @media(prefers-reduced-motion:reduce) {
     .hoosh-theme .section-view-all,.hoosh-theme .courses-scroll .course-card,.hoosh-theme .courses-scroll .card-image { transition:none; }
 }
+
+
+/* Consultation callout replacing the learning-path section */
+.hoosh-theme .consultation-section { background:#f6f8fc; padding-block:30px; }
+.hoosh-theme .consultation-panel { display:flex; align-items:center; gap:22px; padding:clamp(22px,3vw,36px); border:1px solid #dce7f7; border-radius:22px; background:linear-gradient(115deg,#fff 0%,#f1f6ff 100%); box-shadow:0 10px 30px rgb(23 52 92 / .055); }
+.hoosh-theme .consultation-icon { flex:0 0 58px; width:58px; height:58px; display:grid; place-items:center; border-radius:17px; background:#e8f1ff; color:#245fdb; }
+.hoosh-theme .consultation-icon .ui-icon { width:28px;height:28px; }
+.hoosh-theme .consultation-copy { flex:1; min-width:0; text-align:right; }
+.hoosh-theme .consultation-eyebrow { display:block; color:#245fdb; font-size:12px; font-weight:800; margin-bottom:5px; }
+.hoosh-theme .consultation-copy h2 { margin:0 0 7px; color:#17345c; font-size:clamp(19px,2vw,25px); line-height:1.7; }
+.hoosh-theme .consultation-copy p { margin:0; color:#697b95; font-size:13px; line-height:1.9; }
+.hoosh-theme .consultation-cta { flex:0 0 auto; min-height:46px; gap:10px; }
+.hoosh-theme .instructors-scroll-shell { min-width:0; }
+.hoosh-theme .instructors-scroll { display:flex; flex-wrap:nowrap; gap:16px; overflow-x:auto; overflow-y:hidden; padding:4px 2px 16px; scroll-snap-type:x mandatory; scroll-padding-inline:2px; overscroll-behavior-inline:contain; -webkit-overflow-scrolling:touch; scrollbar-width:thin; scrollbar-color:#b8c9e7 transparent; }
+.hoosh-theme .instructors-scroll::-webkit-scrollbar { height:7px; }
+.hoosh-theme .instructors-scroll::-webkit-scrollbar-thumb { background:#c4d2e8; border-radius:20px; }
+.hoosh-theme .instructors-scroll .instructor-tile { flex:0 0 clamp(245px,25vw,285px); min-width:0; min-height:130px; display:flex; align-items:center; gap:15px; padding:20px; border:1px solid #e2e8f0; border-radius:16px; background:#fff; box-shadow:0 4px 12px rgb(23 52 92 / .035); scroll-snap-align:start; transition:transform .2s ease,box-shadow .2s ease; }
+.hoosh-theme .instructors-scroll .instructor-tile:hover { transform:translateY(-3px); box-shadow:0 10px 24px rgb(23 52 92 / .08); }
+.hoosh-theme .instructors-scroll .instructor-avatar { flex:0 0 66px; width:66px; height:66px; border-radius:50%; object-fit:cover; display:grid; place-items:center; background:#edf4ff; color:#245fdb; font-size:24px; font-weight:800; }
+.hoosh-theme .instructors-scroll .instructor-tile h3 { margin:0 0 7px; color:#17345c; font-size:14px; line-height:1.8; }
+.hoosh-theme .instructors-scroll .instructor-tile p { margin:0; color:#73839a; font-size:12px; line-height:1.8; }
+.hoosh-theme .platform-stats-section { padding-block:36px; background:#fff; }
+.hoosh-theme .platform-stats-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; }
+.hoosh-theme .platform-stat-card { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:9px; min-width:0; padding:24px 14px; border:1px solid #e3eaf5; border-radius:17px; background:linear-gradient(145deg,#fff,#f7faff); text-align:center; }
+.hoosh-theme .platform-stat-icon { display:grid; place-items:center; width:44px; height:44px; border-radius:13px; background:#edf4ff; color:#245fdb; }
+.hoosh-theme .platform-stat-icon .ui-icon { width:23px;height:23px; }
+.hoosh-theme .platform-stat-number { color:#17345c; font-size:clamp(24px,3vw,34px); line-height:1.3; font-weight:800; font-variant-numeric:tabular-nums; }
+.hoosh-theme .platform-stat-label { color:#71819a; font-size:13px; font-weight:600; }
+@media(max-width:700px) {
+ .hoosh-theme .consultation-panel { align-items:flex-start; flex-wrap:wrap; gap:14px; padding:20px; }
+ .hoosh-theme .consultation-icon { width:46px;height:46px;flex-basis:46px;border-radius:13px; }
+ .hoosh-theme .consultation-copy { flex-basis:calc(100% - 62px); }
+ .hoosh-theme .consultation-copy h2 { font-size:18px; }
+ .hoosh-theme .consultation-cta { width:100%; }
+ .hoosh-theme .instructors-scroll .instructor-tile { flex-basis:245px; padding:16px; }
+ .hoosh-theme .platform-stats-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:11px; }
+ .hoosh-theme .platform-stat-card { padding:20px 10px; }
+}
+@media(prefers-reduced-motion:reduce) { .hoosh-theme .instructors-scroll .instructor-tile { transition:none; } }
