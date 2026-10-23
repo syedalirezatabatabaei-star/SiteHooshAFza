@@ -34,53 +34,23 @@
 <body class="hoosh-theme">
     <div id="header"></div>
 
-    <!-- Hero: three-slide education banner carousel -->
-    <section class="hero-section hero-carousel-section" aria-label="معرفی هوش افزا">
+    <!-- Hero: fixed search and two reserved image slots -->
+    <section class="section hero-search-section" aria-label="جست‌وجوی مسیر یادگیری">
         <div class="container">
-            <div id="heroCarousel" class="carousel hero-carousel" data-autoplay="true" data-interval="5500" data-loop="true" aria-roledescription="carousel">
-                <div class="carousel-track">
-                    <article class="carousel-slide active" aria-label="اسلاید ۱ از ۳">
-                        <img class="hero-slide-image" src="/assets/images/banners/banner-1.jpg" alt="فضای آموزشی و دوره‌های تخصصی" fetchpriority="high">
-                        <div class="hero-slide-shade"></div>
-                        <div class="hero-slide-content">
-                            <span class="hero-badge">آکادمی هوش افزا</span>
-                            <h1 class="hero-title">یادگیری مهارت‌های آینده،<br><span>با مسیری روشن و کاربردی</span></h1>
-                            <p class="hero-subtitle">دوره‌های تخصصی، آموزش مرحله‌به‌مرحله و مهارت‌هایی که می‌توانید در عمل به کار بگیرید.</p>
-                            <div class="hero-actions">
-                                <a href="/pages/courses.html" class="btn btn-primary btn-lg">مشاهده دوره‌ها</a>
-                                <a href="/pages/about.html" class="btn btn-outline btn-lg">آشنایی با هوش افزا</a>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="carousel-slide" aria-label="اسلاید ۲ از ۳">
-                        <img class="hero-slide-image" src="/assets/images/banners/banner-2.jpg" alt="آموزش مهارت‌های تخصصی و کاربردی" loading="lazy">
-                        <div class="hero-slide-shade"></div>
-                        <div class="hero-slide-content">
-                            <span class="hero-badge">از یادگیری تا مهارت</span>
-                            <h2 class="hero-title">دانش را به توانایی<br><span>و توانایی را به فرصت تبدیل کن</span></h2>
-                            <p class="hero-subtitle">با آموزش‌های هدفمند و تمرین‌های کاربردی، قدم‌به‌قدم پیشرفت کن.</p>
-                            <div class="hero-actions">
-                                <a href="/pages/courses.html" class="btn btn-primary btn-lg">انتخاب مسیر یادگیری</a>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="carousel-slide" aria-label="اسلاید ۳ از ۳">
-                        <img class="hero-slide-image" src="/assets/images/banners/banner-3.jpg" alt="یادگیری آنلاین و توسعه مهارت" loading="lazy">
-                        <div class="hero-slide-shade"></div>
-                        <div class="hero-slide-content">
-                            <span class="hero-badge">یادگیری برای همه</span>
-                            <h2 class="hero-title">هر قدمی که یاد می‌گیری،<br><span>شروع یک فرصت تازه است</span></h2>
-                            <p class="hero-subtitle">دوره مناسب خودت را پیدا کن و یادگیری را با برنامه‌ای قابل اجرا شروع کن.</p>
-                            <div class="hero-actions">
-                                <a href="/pages/courses.html" class="btn btn-primary btn-lg">شروع یادگیری</a>
-                                <a href="/pages/contact.html" class="btn btn-outline btn-lg">مشاوره و راهنمایی</a>
-                            </div>
-                        </div>
-                    </article>
+            <div class="learning-discovery-grid">
+                <div class="learning-search-panel">
+                    <span class="learning-search-eyebrow">مسیر شما از اینجا شروع می‌شود</span>
+                    <h1>به دنبال چه چیزی هستید؟</h1>
+                    <p>نام مهارت یا دوره‌ای را که می‌خواهید یاد بگیرید وارد کنید.</p>
+                    <form class="learning-search-form" id="learningPathSearch" role="search" action="/pages/courses.html" method="get">
+                        <label class="visually-hidden" for="learningPathQuery">به دنبال چه چیزی هستید؟</label>
+                        <svg class="ui-icon learning-search-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#search"></use></svg>
+                        <input id="learningPathQuery" name="search" type="search" placeholder="مثلاً پایتون، طراحی سایت، هوش مصنوعی" autocomplete="off">
+                        <button class="btn btn-primary" type="submit">جست‌وجو</button>
+                    </form>
                 </div>
-                <button type="button" class="carousel-btn carousel-prev" aria-label="اسلاید قبلی"></button>
-                <button type="button" class="carousel-btn carousel-next" aria-label="اسلاید بعدی"></button>
-                <div class="carousel-dots" role="tablist" aria-label="انتخاب اسلاید"></div>
+                <div class="learning-empty-tile" aria-hidden="true"></div>
+                <div class="learning-empty-tile" aria-hidden="true"></div>
             </div>
         </div>
     </section>
@@ -145,27 +115,25 @@
         </div>
     </section>
 
-    <!-- Learning Path: fixed search panel with reserved empty tiles -->
-    <section class="section path-section" aria-label="مسیر یادگیری خود را پیدا کنید">
+    <!-- Learning Path -->
+    <section class="section path-section" aria-label="مسیر یادگیری خود را بسازید">
         <div class="container">
             <div class="section-header text-center">
-                <h2 class="section-title">مسیر یادگیری خود را پیدا کنید</h2>
-                <p class="section-subtitle">از علاقه‌تان شروع کنید؛ مسیر مناسب را جست‌وجو کنید.</p>
+                <h2 class="section-title">مسیر یادگیری خود را بسازید</h2>
+                <p class="section-subtitle">از مبتدی تا حرفه‌ای، مسیر یادگیری خود را با ما طی کنید</p>
             </div>
-            <div class="learning-discovery-grid">
-                <div class="learning-search-panel">
-                    <span class="learning-search-eyebrow">مسیر شما از اینجا شروع می‌شود</span>
-                    <h3>به دنبال چه چیزی هستید؟</h3>
-                    <p>نام مهارت یا دوره‌ای را که می‌خواهید یاد بگیرید وارد کنید.</p>
-                    <form class="learning-search-form" id="learningPathSearch" role="search" action="/pages/courses.html" method="get">
-                        <label class="visually-hidden" for="learningPathQuery">به دنبال چه چیزی هستید؟</label>
-                        <svg class="ui-icon learning-search-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#search"></use></svg>
-                        <input id="learningPathQuery" name="search" type="search" placeholder="مثلاً پایتون، طراحی سایت، هوش مصنوعی" autocomplete="off">
-                        <button class="btn btn-primary" type="submit">جست‌وجو</button>
-                    </form>
-                </div>
-                <div class="learning-empty-tile" aria-hidden="true"></div>
-                <div class="learning-empty-tile" aria-hidden="true"></div>
+            <div class="learning-path">
+                <div class="path-step"><div class="step-icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#flag"></use></svg></div><div class="step-content"><h3 class="step-title">شروع</h3><p class="step-description">شروع یادگیری با مبانی برنامه‌نویسی</p></div></div>
+                <div class="path-connector"></div>
+                <div class="path-step"><div class="step-icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#code"></use></svg></div><div class="step-content"><h3 class="step-title">پایتون</h3><p class="step-description">یادگیری زبان پایتون از صفر تا صد</p></div></div>
+                <div class="path-connector"></div>
+                <div class="path-step"><div class="step-icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#chip"></use></svg></div><div class="step-content"><h3 class="step-title">یادگیری ماشین</h3><p class="step-description">مبانی و الگوریتم‌های یادگیری ماشین</p></div></div>
+                <div class="path-connector"></div>
+                <div class="path-step"><div class="step-icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#layers"></use></svg></div><div class="step-content"><h3 class="step-title">یادگیری عمیق</h3><p class="step-description">شبکه‌های عصبی و یادگیری عمیق</p></div></div>
+                <div class="path-connector"></div>
+                <div class="path-step"><div class="step-icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#eye"></use></svg></div><div class="step-content"><h3 class="step-title">بینایی ماشین</h3><p class="step-description">پردازش تصویر و بینایی ماشین</p></div></div>
+                <div class="path-connector"></div>
+                <div class="path-step"><div class="step-icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/images/ui-icons.svg#target"></use></svg></div><div class="step-content"><h3 class="step-title">هوش مصنوعی</h3><p class="step-description">مسلط بر هوش مصنوعی و کاربردهای آن</p></div></div>
             </div>
         </div>
     </section>
