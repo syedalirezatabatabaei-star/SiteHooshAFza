@@ -161,12 +161,12 @@ const Header = (() => {
     }
 
     function initActiveLinks() {
-        const path = window.location.pathname.replace(/\\/+$/, '') || '/';
+        const path = window.location.pathname.replace(/\/+$/, '') || '/';
         const category = new URLSearchParams(window.location.search).get('category');
         const links = document.querySelectorAll('.navbar-link[href], .mobile-menu-link[href]');
         links.forEach(link => {
             const url = new URL(link.href, window.location.origin);
-            const target = url.pathname.replace(/\\/+$/, '') || '/';
+            const target = url.pathname.replace(/\/+$/, '') || '/';
             if (target !== path || url.search) return;
             // Course and category triggers share a destination; never mark both active.
             if (category && (link.classList.contains('navbar-courses-link') || link.classList.contains('mobile-courses-link'))) return;
