@@ -39,25 +39,6 @@ def list_enrollments(user=Depends(get_current_user)):
     return result
 
 
-@router.get('/spotplayer-licenses')
-def list_spotplayer_licenses(user=Depends(get_current_user)):
-    """لیسانس‌های SpotPlayer صادرشده برای سفارش‌های همین کاربر."""
-    from apps.courses.models import SpotPlayerLicense
-    records = SpotPlayerLicense.objects.filter(
-        order_item__order__user=user,
-        order_item__order__status='PAID',
-        status='CREATED',
-    ).select_related('order_item__course').order_by('-created_at')
-    return [{
-        'course_id': row.order_item.course_id,
-        'course_title': row.order_item.course.title,
-        'license_id': row.external_license_id,
-        'license_key': row.license_key,
-        'license_url': row.license_url,
-        'created_at': row.created_at,
-    } for row in records]
-
-
 @router.get('/{enrollment_id}')
 def get_enrollment(enrollment_id: int, user=Depends(get_current_user)):
     """جزئیات ثبت‌نام"""
