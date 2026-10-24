@@ -513,9 +513,14 @@ def reject_review(review_id: int, admin=Depends(get_current_admin)):
 @router.get('/courses')
 def admin_list_courses(admin=Depends(get_current_admin)):
     from routers.v1.courses import serialize_course
-    return [dict(serialize_course(course).model_dump(), status=course.status,
-                 is_published=course.is_published,\n                 spotplayer_course_id=course.spotplayer_course_id)
-            for course in Course.objects.select_related('instructor', 'category').all()]
+    return [
+        dict(
+            serialize_course(course).model_dump(),
+            status=course.status,
+            is_published=course.is_published,
+        )
+        for course in Course.objects.select_related('instructor', 'category').all()
+    ]
 
 @router.post('/courses', status_code=201)
 def admin_create_course(
@@ -541,25 +546,3 @@ def admin_create_course(
     return {'message': 'دوره ایجاد شد', 'id': course.id}
 
 
-
-@router.post('/spotplayer-licenses/{order_item_id}/retry')
-def retry_spotplayer_license(order_item_id: int, admin=Depends(get_current_admin)):
-    """Retry a failed/pending SpotPlayer license issuance for a paid order item."""
-    from apps.orders.models import OrderItem
-    from apps.courses.spotplayer import issue_license_for_order_item
-    try:
-        item = OrderItem.objects.select_related('order__user', 'course').get(
-            pk=order_item_id, order__status='PAID',
-        )
-    except OrderItem.DoesNotExist:
-        raise HTTPException(status_code=404, detail='آیتم سفارش پرداخت‌شده یافت نشد')
-    if not item.course.is_recorded or not item.course.spotplayer_course_id:
-        raise HTTPException(status_code=400, detail='برای این دوره ضبط‌شده، شناسه SpotPlayer تنظیم نشده است')
-    license_record = issue_license_for_order_item(item)
-    if not license_record:
-        raise HTTPException(status_code=400, detail='لایسنس برای این آیتم قابل صدور نیست')
-    return {
-        'status': license_record.status,
-        'license_id': license_record.external_license_id,
-        'error': license_record.error_message,
-    }
