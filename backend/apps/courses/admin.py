@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Instructor, Course, CourseSchedule, InPersonDetail, Chapter, Lesson, SpotPlayerLicense
+from .models import Category, Instructor, Course, CourseSchedule, InPersonDetail, Chapter, Lesson
 
 
 class CourseScheduleInline(admin.TabularInline):
@@ -37,17 +37,17 @@ class InstructorAdmin(admin.ModelAdmin):
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ('title', 'course_type', 'instructor', 'category', 'price', 'status', 'is_published', 'spotplayer_course_id', 'created_at')
+    list_display = ('title', 'course_type', 'instructor', 'category', 'price', 'status', 'is_published', 'created_at')
     list_filter = ('course_type', 'status', 'is_published', 'category')
-    search_fields = ('title', 'slug', 'spotplayer_course_id')
+    search_fields = ('title', 'slug')
     prepopulated_fields = {'slug': ('title',)}
     inlines = [CourseScheduleInline, InPersonDetailInline, ChapterInline]
     list_editable = ('status', 'is_published')
 
 
-@admin.register(SpotPlayerLicense)\nclass SpotPlayerLicenseAdmin(admin.ModelAdmin):\n    list_display = ('order_item', 'external_license_id', 'status', 'created_at')\n    list_filter = ('status', 'created_at')\n    search_fields = ('external_license_id', 'order_item__order__user__phone_number')\n    readonly_fields = ('created_at', 'updated_at', 'provider_response')\n\n\n@admin.register(Lesson)
+@admin.register(Lesson)
 class LessonAdmin(admin.ModelAdmin):
-    list_display = ('title', 'chapter', 'order', 'duration', 'is_preview', 'is_published')
+    list_display = ('title', 'chapter', 'order', 'duration', 'is_preview', 'is_published', 'spotplayer_id')
     list_filter = ('is_published', 'is_preview', 'chapter__course')
-    search_fields = ('title',)
+    search_fields = ('title', 'spotplayer_id')
     list_editable = ('order', 'is_published')
