@@ -89,11 +89,6 @@ class Course(models.Model):
         db_index=True,
     )
     is_published = models.BooleanField('منتشر شده', default=False, db_index=True)
-    # External SpotPlayer course/package ID configured by an administrator.
-    spotplayer_course_id = models.CharField(
-        'شناسه دوره در SpotPlayer', max_length=100, blank=True, db_index=True,
-    )
-
     # SEO
     meta_title = models.CharField('عنوان متا', max_length=200, blank=True)
     meta_description = models.CharField('توضیحات متا', max_length=300, blank=True)
@@ -246,7 +241,7 @@ class Lesson(models.Model):
     description = models.TextField('توضیحات', blank=True)
     duration = models.PositiveIntegerField('مدت زمان (دقیقه)')
     order = models.PositiveIntegerField('ترتیب', default=0)
-    spotplayer_id = models.CharField('شناسه SpotPlayer', max_length=100, blank=True)
+    spotplayer_id = models.CharField('شناسه ویدئو در SpotPlayer', max_length=100, blank=True)
     is_preview = models.BooleanField('پیش‌نمایش رایگان', default=False)
     is_published = models.BooleanField('منتشر شده', default=True)
 
@@ -263,33 +258,3 @@ class Lesson(models.Model):
         return Lesson.objects.filter(chapter__course=self.chapter.course).count()
 
 
-
-class SpotPlayerLicense(models.Model):
-    """SpotPlayer license issued for a paid order item."""
-
-    STATUS_CHOICES = [
-        ('PENDING', 'در انتظار صدور'),
-        ('CREATED', 'صادر شده'),
-        ('FAILED', 'ناموفق'),
-    ]
-
-    order_item = models.OneToOneField(
-        'orders.OrderItem', on_delete=models.CASCADE,
-        related_name='spotplayer_license', verbose_name='آیتم سفارش',
-    )
-    external_license_id = models.CharField('شناسه لایسنس خارجی', max_length=120, blank=True)
-    license_key = models.CharField('کد لایسنس', max_length=500, blank=True)
-    license_url = models.CharField('آدرس دریافت لایسنس', max_length=1000, blank=True)
-    status = models.CharField('وضعیت', max_length=10, choices=STATUS_CHOICES, default='PENDING', db_index=True)
-    error_message = models.TextField('خطا', blank=True)
-    provider_response = models.JSONField('پاسخ سرویس', default=dict, blank=True)
-    created_at = models.DateTimeField('تاریخ ایجاد', auto_now_add=True)
-    updated_at = models.DateTimeField('تاریخ به‌روزرسانی', auto_now=True)
-
-    class Meta:
-        verbose_name = 'لایسنس SpotPlayer'
-        verbose_name_plural = 'لایسنس‌های SpotPlayer'
-        ordering = ['-created_at']
-
-    def __str__(self):
-        return f'SpotPlayer license for order item #{self.order_item_id}'
